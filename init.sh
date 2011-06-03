@@ -4,7 +4,7 @@
 
 # Init danielfeng's Linux System
 
-TOOLS_DIR=/home/tools/sbin
+TOOLS_DIR=/home/ctools/sbin
 
 if [ `id -u` -eq 0 ] ; then
 	:
