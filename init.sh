@@ -17,6 +17,7 @@ $TOOLS_DIR/init_rc.sh
 $TOOLS_DIR/init_selinux.sh
 $TOOLS_DIR/init_bashrc.sh
 $TOOLS_DIR/init_user.sh
+$TOOLS_DIR/init_vi.sh
 #$TOOLS_DIR/init_hostname.sh
 
 exit
