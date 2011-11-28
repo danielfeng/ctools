@@ -13,5 +13,7 @@ echo "export JAVA_HOME=/home/coremail/java/jre1.6.0_11" >> /root/.bashrc
 echo "export TOMCAT_HOME=/home/coremail/java/tomcat" >> /root/.bashrc
 echo "export LC_ALL=zh_CN.gbk" >> /root/.bashrc
 echo "export LANG=zh_CN.gbk" >> /root/.bashrc
+echo "export HISTTIMEFORMAT=\"%Y-%m-%d_%H:%M:%S \" " >> /root/.bashrc
+
 
 source /root/.bashrc
