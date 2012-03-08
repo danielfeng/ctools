@@ -1,0 +1,12 @@
+#!/bin/bash
+# Author : danielfeng
+# E-Mail : danielfancy@gmail.com
+
+
+PORT=3306
+HOSTNAME=$(grep cm_logs_db /home/coremail/conf/datasources.cf -5 |grep Server |awk -F\" '{print $2}')
+USERNAME=$(grep cm_logs_db /home/coremail/conf/datasources.cf -5 |grep User|awk -F\" '{print $2}')
+PASSWORD=$(grep cm_logs_db /home/coremail/conf/datasources.cf -5 |grep Password |awk -F\" '{print $2}')
+DBNAME=$(grep cm_logs_db /home/coremail/conf/datasources.cf -5 | grep Database|awk -F\" '{print $2}')
+DATE_B8=`date +%F -d'-8 day'`
+DATE_B1=`date +%F -d'-1 day'`
