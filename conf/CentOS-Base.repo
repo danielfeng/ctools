@@ -1,53 +1,33 @@
 [base]
-name=CentOS-5 – Base
-#mirrorlist=http://mirrorlist.centos.org/?release=$releasever5&arch=$basearch&
+name=CentOS-5 - Base
 repo=os
-#baseurl=http://mirror.centos.org/centos/$releasever/os/$basearch/
-baseurl=http://ftp.sjtu.edu.cn/centos/5/os/$basearch/
+baseurl=http://centos.ustc.edu.cn/centos/5/os/$basearch/
 gpgcheck=1
-gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-centos5
-
-#released updates
+gpgkey=http://centos.ustc.edu.cn/centos/RPM-GPG-KEY-CentOS-5
 [update]
-name=CentOS-5 – Updates
-#mirrorlist=http://mirrorlist.centos.org/?release=4&arch=$basearch&repo=updates
-baseurl=http://ftp.sjtu.edu.cn/centos/5/updates/$basearch/
+name=CentOS-5 - Updates
+baseurl=http://centos.ustc.edu.cn/centos/5/updates/$basearch/
 gpgcheck=1
-gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-centos5
-
-#packages used/produced in the build but not released
+gpgkey=http://centos.ustc.edu.cn/centos/RPM-GPG-KEY-CentOS-5
 [addons]
-name=CentOS-5 – Addons
-#mirrorlist=http://mirrorlist.centos.org/?release=4&arch=$basearch&repo=addons
-
-baseurl=http://ftp.sjtu.edu.cn/centos/5/addons/$basearch/
+name=CentOS-5 - Addons
+baseurl=http://centos.ustc.edu.cn/centos/5/addons/$basearch/
 gpgcheck=1
-gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-centos5
-
-#additional packages that may be useful
+gpgkey=http://centos.ustc.edu.cn/centos/RPM-GPG-KEY-CentOS-5
 [extras]
-name=CentOS-5 – Extras
-#mirrorlist=http://mirrorlist.centos.org/?release=4&arch=$basearch&repo=extras
-
-baseurl=http://ftp.sjtu.edu.cn/centos/5/extras/$basearch/
+name=CentOS-5 - Extras
+baseurl=http://centos.ustc.edu.cn/centos/5/extras/$basearch/
 gpgcheck=1
-gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-centos5
-
-#additional packages that extend functionality of existing packages
+gpgkey=http://centos.ustc.edu.cn/centos/RPM-GPG-KEY-CentOS-5
 [centosplus]
-name=CentOS-5 – Plus
-#mirrorlist=http://mirrorlist.centos.org/?release=4&arch=$basearch&repo=centosplus
-baseurl=http://ftp.sjtu.edu.cn/centos/5/centosplus/$basearch/
+name=CentOS-5 - Plus
+baseurl=http://centos.ustc.edu.cn/centos/5/centosplus/$basearch/
 gpgcheck=1
 enabled=0
-gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-centos5
-
-#contrib – packages by Centos Users
+gpgkey=http://centos.ustc.edu.cn/centos/RPM-GPG-KEY-CentOS-5
 [contrib]
-name=CentOS-5 – Contrib
-#mirrorlist=http://mirrorlist.centos.org/?release=4&arch=$basearch&repo=contrib
-baseurl=http://ftp.sjtu.edu.cn/centos/5/contrib/$basearch/
+name=CentOS-5 - Contrib
+baseurl=http://centos.ustc.edu.cn/centos/5/contrib/$basearch/
 gpgcheck=1
 enabled=0
-gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-centos5
-
+gpgkey=http://centos.ustc.edu.cn/centos/RPM-GPG-KEY-CentOS-5

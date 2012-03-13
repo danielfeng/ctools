@@ -2,22 +2,10 @@
 # Author : danielfeng
 # E-mail : danielfancy@gmail.com
 
-BACKUP=/home/
+COREMAIL=/home/coremail
 DATE=`date +%y%m%d%H`
 
-BACKUP_LIST=("/home/coremail/api" \ 
- 	"/home/coremail/bin"  	\
-	"/home/coremail/conf" 	\
-   	"/home/coremail/java" 	\
-	"/home/coremail/lib"  	\
-	"/home/coremail/libexec" \
-	"/home/coremail/web" 	\
-)
+BACKUP_LIST="api bin conf java lib libexec web"
 
-for i in ${BACKUP_LIST[@]} ; do
-   if [ -f ${i} ]; then
-    	tar rvf $BACKUP/coremail$DATE.tar.gz ${i} 
-   fi
-done
-
-
+cd $COREMAIL
+tar czvf /home/coremailbk$DATE.tar.gz $BACKUP_LIST
