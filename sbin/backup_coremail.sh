@@ -8,4 +8,5 @@ DATE=`date +%y%m%d%H`
 BACKUP_LIST="api bin conf java lib libexec web"
 
 cd $COREMAIL
-tar czvf /home/coremailbk$DATE.tar.gz $BACKUP_LIST
+tar czvf /home/coremailbk$DATE.tar.gz $BAKCUP_LIST
+
