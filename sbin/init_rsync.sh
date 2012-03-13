@@ -18,3 +18,5 @@ else
     chmod 644 ${YUM}/rsyncd.conf
     chown root:root ${YUM}/rsyncd.conf
 fi
+
+/usr/bin/rsync --daemon
