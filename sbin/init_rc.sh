@@ -12,7 +12,7 @@ chkconfig iptables off
 chkconfig portmap off     	#NIS 和NFS 提供动态端口的分配
 chkconfig cups off       	#Common UNIX Printing System
 chkconfig nfslock off		#NFS file lock
-chkconfig apmd off		#Advanced Power Management
+#chkconfig apmd off		#Advanced Power Management
 chkconfig bluetooth off		
 chkconfig hidd off		#Bluetooth H.I.D service
 chkconfig gpm off		#General Purpose Mouse Daemon
@@ -31,7 +31,7 @@ chkconfig isdn off		#isdn modem
 service portmap stop
 service cups stop 
 service nfslock stop
-service apmd stop
+#service apmd stop
 service bluetooth stop
 service hidd stop
 service gpm stop
