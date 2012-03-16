@@ -29,7 +29,7 @@ chkconfig rpcgssd   off		#redhat update software
 chkconfig isdn off		#isdn modem
 
 service portmap stop
-service cups  
+service cups stop 
 service nfslock stop
 service apmd stop
 service bluetooth stop
