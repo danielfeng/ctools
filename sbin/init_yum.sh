@@ -18,3 +18,6 @@ else
     chmod 644 ${YUM}/CentOS-Base.repo
     chown root:root ${YUM}/CentOS-Base.repo
 fi
+
+rpm -Uvh http://download.fedora.redhat.com/pub/epel/5/i386/epel-release-5-4.noarch.rpm
+
