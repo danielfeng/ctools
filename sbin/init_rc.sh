@@ -30,6 +30,7 @@ chkconfig isdn off		#isdn modem
 chkconfig httpd off
 
 
+
 service httpd stop
 service portmap stop
 service cups stop 
