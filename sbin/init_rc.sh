@@ -27,7 +27,10 @@ chkconfig auditd off		#审核守护进程
 chkconfig rpcidmapd off		#redhat update software
 chkconfig rpcgssd   off		#redhat update software
 chkconfig isdn off		#isdn modem
+chkconfig httpd off
 
+
+service httpd stop
 service portmap stop
 service cups stop 
 service nfslock stop
