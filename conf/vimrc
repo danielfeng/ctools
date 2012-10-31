@@ -27,6 +27,15 @@ set numberwidth=4
 "检测文件的类型
 filetype on 
 
+"根据侦测到的不同类型文件加载对应插件
+filetype plugin on
+
+"根据检测到的不同类型采用不同的缩进格式
+filetype indent on
+
+"取消补全内容以分割子窗口形式出现，只显示补全类表
+"set completeopt = longest,menu
+
 "记录历史的行数
 set history=1000 
 
