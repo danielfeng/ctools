@@ -9,7 +9,7 @@ chkconfig sendmail off
 chkconfig iptables off
 
 
-chkconfig portmap off     	#NIS 和NFS 提供动态端口的分配
+#chkconfig portmap off     	#NIS 和NFS 提供动态端口的分配
 chkconfig cups off       	#Common UNIX Printing System
 chkconfig nfslock off		#NFS file lock
 #chkconfig apmd off		#Advanced Power Management
@@ -32,7 +32,7 @@ chkconfig httpd off
 
 
 service httpd stop
-service portmap stop
+#service portmap stop
 service cups stop 
 service nfslock stop
 #service apmd stop
