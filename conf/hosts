@@ -1,0 +1,24 @@
+# Do not remove the following line, or various programs
+# that require network functionality will fail.
+127.0.0.1	localhost.localdomain localhost
+
+==========================================
+192.168.173.55 jerry5
+192.168.173.56 jerry6
+192.168.173.65 joen5
+192.168.173.66 joen6
+192.168.173.71 gene5
+192.168.173.72 gene6
+192.168.173.74 asmail
+192.168.173.75 cmmail
+192.168.173.77 daniel5
+192.168.173.78 daniel6
+192.168.173.80 cloud5
+192.168.173.88 zhong5
+192.168.173.89 zhong6
+192.168.173.90 cloud6
+192.168.173.99 barton5
+192.168.173.100 barton6
+192.168.173.210 sky
+192.168.173.212 centos
+
