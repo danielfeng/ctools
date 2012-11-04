@@ -8,6 +8,9 @@ echo "alias egrep='egrep --color=auto'" >> /root/.bashrc
 echo "alias fgrep='fgrep --color=auto'" >> /root/.bashrc
 echo "alias ls='ls --color=auto'" >> /root/.bashrc
 echo "alias lt='ls -lt'" >> /root/.bashrc
+echo "alias la='ls -A'" >> /root/.bashrc
+echo "alias c='clear'" >> /root/.bashrc
+
 
 echo "export COREMAIL_HOME=/home/coremail" >> /root/.bashrc
 echo "export JAVA_HOME=/home/coremail/java/jre1.6.0_11" >> /root/.bashrc
