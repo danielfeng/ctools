@@ -21,5 +21,7 @@ echo "export HISTTIMEFORMAT=\"%Y-%m-%d_%H:%M:%S \" " >> /root/.bashrc
 
 echo "export GROUPSEND_HOME=/home/groupsend/" >> /root/.bashrc
 
+echo "export PATH=$PATH:/home/coremail/bin/" >> /root/.bashrc
+
 
 source /root/.bashrc
