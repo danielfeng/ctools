@@ -19,7 +19,7 @@ set guifont=Monaco:h12:cANSI
 set nocompatible
 
 "显示行号
-"set number
+set number
 
 "行号栏的宽度
 set numberwidth=4

@@ -2,7 +2,6 @@
 # Author : danielfeng
 # E-Mail : danielfancy@gmail.com
 
-
 CMHOSTS=/home/home/coremail/conf/hosts.cf
 HOSTS=/etc/hosts
 

@@ -21,5 +21,7 @@ $TOOLS_DIR/init_vi.sh
 $TOOLS_DIR/init_yum.sh
 #$TOOLS_DIR/init_rsync.sh
 #$TOOLS_DIR/init_hostname.sh
+#$TOOLS_DIR/init_vimrc.sh
+
 
 exit
