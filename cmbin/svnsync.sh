@@ -9,4 +9,5 @@ DATE=`date +"%Y-%m-%d"`
 
 [ -d $LOGS ] || mkdir -p $LOGS
 cd $PUBLIC
+svn cleanup public
 svn co $URL > $LOGS/svnsync.$DATE.log &
