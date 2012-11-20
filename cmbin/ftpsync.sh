@@ -10,7 +10,7 @@ LOGS=/home/ctools/logs
 DATE=`date +"%Y-%m-%d"`
 
 [ -d $LOGS ] || mkdir -p $LOGS
-wget -nH -m ftp://$USER:$PASSWORD@$IP/release/ -P $RELEASE -o $LOGS/release.$DATE.log 
+wget -nH -m -c -b ftp://$USER:$PASSWORD@$IP/release/ -P $RELEASE -o $LOGS/release.$DATE.log 
 
 ##wget -r -b ftp://$USER:$PASSWORD@$IP/release/ -P $RELEASE -nH --cut-dirs=2 -o $LOGS/release.$DATE.log 
 
