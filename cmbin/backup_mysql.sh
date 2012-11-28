@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Author : danielfeng
 # E-mail : danielfancy@gmail.com
 
@@ -17,4 +17,4 @@ if [ ! -d ${BAK_DIR} ] ; then
 fi
 
 
-$MYSQLDUMP -A -u${USERNAME} -p${PASSWORD} -h${HOSTNAME} -P${PORT} > ${BAK_DIR}/all_datebase.sql #>> ${MYSQLBAK_LOG}
+$MYSQLDUMP -A -u${USERNAME} -p${PASSWORD} -h${HOSTNAME} -P${PORT} > ${BAK_DIR}/all_database.sql #>> ${MYSQLBAK_LOG}
