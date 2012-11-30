@@ -8,7 +8,6 @@ PASSWORD=$(grep cm_logs_db /home/coremail/conf/datasources.cf -5 | grep Password
 PORT=$(grep cm_logs_db /home/coremail/conf/datasources.cf -5 | grep Port |awk -F\" '{print $2}')
 USERUTIL=/home/coremail/bin/userutil
 CSA=/home/coremail/bin/createsa
-CMD=$1
 MYSQL=/home/coremail/mysql/bin/mysql
 ADMIN=coremail123
 SAPASSWORD=core@mail
