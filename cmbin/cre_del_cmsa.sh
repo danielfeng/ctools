@@ -12,18 +12,37 @@ CMD=$1
 MYSQL=/home/coremail/mysql/bin/mysql
 ADMIN=coremail123
 SAPASSWORD=core@mail
-RMTMP=`\rm /tmp/a.txt`
-ATTR=`head -1 /tmp/a.txt`
-DN=`head -1 /tmp/a.txt | awk '{print $3}'`
 SA="select td_site_admin.provider_id,org_id,domain_name from td_site_admin,td_domain where admin_type=\"SA\" and domain_id="1" into outfile '/tmp/a.txt';"
 
-$MYSQL cmxt -e "$SA" -u${USERNAME} -p$PASSWORD -P${PORT} -h${HOSTNAME}
+existsa()
+{
+    USER=`/home/coremail/bin/userutil --display $ADMIN | head -1 | awk '{print $1}'`
+    [ "$USER" == "User:" ] && echo "User Exist $ADMIN, Usage: $0 -d or del $ADMIN" && exit 1
 
+}
 
-if [ "$1" == "del" ]; then
-    $USERUTIL --delete-user $ADMIN@$DN
-    $RMTMP
-else
+createsa()
+{
+    existsa
+    $MYSQL cmxt -e "$SA" -u${USERNAME} -p$PASSWORD -P${PORT} -h${HOSTNAME}
+    ATTR=`head -1 /tmp/a.txt`
     $CSA $ATTR $ADMIN $SAPASSWORD
-    $RMTMP
-fi
+    RMTMP=`\rm /tmp/a.txt`
+}
+
+delsa()
+{
+    $MYSQL cmxt -e "$SA" -u${USERNAME} -p$PASSWORD -P${PORT} -h${HOSTNAME}
+    DN=`head -1 /tmp/a.txt | awk '{print $3}'`
+    $USERUTIL --delete-user $ADMIN@$DN
+    RMTMP=`\rm /tmp/a.txt`
+}
+
+case $1 in
+del | -d )
+    delsa;;
+add | -a )
+    createsa;;
+*)
+    echo "usage: $0 -a add $ADMIN sa -d del $ADMIN sa";;
+esac
