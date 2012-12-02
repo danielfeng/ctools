@@ -1,2 +1,36 @@
 这是个初始化系统的脚本,Centos和Redhat通用，复制到/home/目录下执行init.sh
-1功能
+|-- README
+|-- bin
+|   |-- base64.sh
+|   |-- dinspect.sh
+|   |-- drun.sh
+|   `-- dssh.sh
+|-- cmbin
+|   |-- add_cmhosts.sh
+|   |-- backup_coremail.sh
+|   |-- backup_mysql.sh
+|   |-- boot_coremail.sh
+|   |-- count_orgcos.sh
+|   |-- cre_del_cmsa.sh
+|   |-- ftpsync.sh
+|   |-- killsvnftp.sh
+|   |-- remove_coremail.sh
+|   `-- svnsync.sh
+|-- conf
+|   |-- CentOS-Base.repo
+|   |-- header
+|   |-- hosts
+|   |-- rsyncd.conf
+|   `-- vimrc
+|-- init.sh
+`-- sbin
+    |-- init_bashrc.sh
+    |-- init_git.sh
+    |-- init_hostname.sh
+    |-- init_rc.sh
+    |-- init_rsync.sh
+    |-- init_selinux.sh
+    |-- init_user.sh
+    |-- init_vi.sh
+    |-- init_vimrc.sh
+    `-- init_yum.sh
