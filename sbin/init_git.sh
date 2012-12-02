@@ -11,6 +11,7 @@ rpm -q cpio             ||  yum -y install cpio
 rpm -q expat-devel      ||  yum -y install expat-devel
 rpm -q gettext-devel    ||  yum -y install gettext-devel
 rpm -q gcc              ||  yum -y install gcc
+rpm -q autoconf         ||  yum -y install autoconf
 
 URL=http://www.codemonkey.org.uk/projects/git-snapshots/git/git-2012-12-02.tar.gz
 filename=`basename ${URL}`
@@ -26,4 +27,6 @@ fi
 wget -c -P /usr/local/src/ ${URL}
 tar xzvf /usr/local/src/${filename} -C /usr/local/src/
 cd /usr/local/src/${dirname}
-make && make install
+autoconf
+./configure --prefix=/usr/local/ || exit
+make prefix=/usr/local all && make prefix=/usr/local install
