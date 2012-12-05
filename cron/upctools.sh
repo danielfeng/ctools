@@ -24,9 +24,14 @@ rctools()
 
 zrctools()
 {
-    cd $release
-    [[ -a ctools.tgz ]] && rm ctools.tgz
-    tar zcf ctools.tgz ctools/
+    ALREADY=`tail -1 /home/ctools/logs/rctools.log | awk '{print $1}'`
+    if [[ "$ALREADY" == "Already" ]]; then
+        exit
+    else
+        cd $release
+        [[ -a ctools.tgz ]] && rm ctools.tgz
+        tar zcf ctools.tgz ctools/
+    fi
 }
 
 hctools
