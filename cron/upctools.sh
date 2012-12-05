@@ -6,7 +6,7 @@ ctools=/home/ctools
 git=/usr/local/bin/git
 release=/var/share/release
 logs=/home/ctools/logs
-DATE=`date +%Y-%m-%d-%H-%M`
+DATE=`date +%Y-%m-%d %H:%M`
 
 hctools ()
 {
