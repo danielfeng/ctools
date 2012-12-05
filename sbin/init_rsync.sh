@@ -2,6 +2,8 @@
 # Author : danielfeng
 # E-Mail : danielfancy@gmail.com
 
+rpm -q rsync || yum -y install rsync
+
 CONF=/home/ctools/conf
 ETC=/etc/
 
