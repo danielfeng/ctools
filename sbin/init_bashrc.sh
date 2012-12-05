@@ -10,6 +10,10 @@ echo "alias ls='ls --color=auto'" >> /root/.bashrc
 echo "alias lt='ls -lt'" >> /root/.bashrc
 echo "alias la='ls -A'" >> /root/.bashrc
 echo "alias c='clear'" >> /root/.bashrc
+echo "alias rm='rm -i --preserve-root'" >> /root/.bashrc
+#echo "alias chgrp='chgrp --preserve-root'" >> /root/.bashrc
+#echo "alias chown='chown --preserve-root'" >> /root/.bashrc
+#echo "alias chmod='chmod --preserve-root'" >> /root/.bashrc
 
 
 echo "export COREMAIL_HOME=/home/coremail" >> /root/.bashrc
