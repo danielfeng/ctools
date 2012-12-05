@@ -16,7 +16,7 @@ hctools ()
 
 rctools()
 {
-    cd $release
+    cd $release/ctools
     echo "`date +%y-%m-%d-%h`" >>$logs/rctools.log
     $git pull >>$logs/rctools.log
 }
