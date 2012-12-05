@@ -12,14 +12,14 @@ hctools ()
 {
     cd $ctools 
     echo "${DATE}" >>$logs/hctools.log
-    $git pull >>$logs/hctools.log 
+    $git pull &>>$logs/hctools.log 
 }
 
 rctools()
 {
     cd $release/ctools
     echo "${DATE}" >>$logs/rctools.log
-    $git pull >>$logs/rctools.log
+    $git pull &>>$logs/rctools.log
 }
 
 zrctools()
