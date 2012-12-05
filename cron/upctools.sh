@@ -6,18 +6,19 @@ ctools=/home/ctools
 git=/usr/local/bin/git
 release=/var/share/release
 logs=/home/ctools/logs
+DATE=`date +%Y-%m-%d-%H-%M`
 
 hctools ()
 {
     cd $ctools 
-    echo "`date +%y-%m-%d-%h`" >>$logs/hctools.log
+    echo "${DATE}" >>$logs/hctools.log
     $git pull >>$logs/hctools.log 
 }
 
 rctools()
 {
     cd $release/ctools
-    echo "`date +%y-%m-%d-%h`" >>$logs/rctools.log
+    echo "${DATE}" >>$logs/rctools.log
     $git pull >>$logs/rctools.log
 }
 
