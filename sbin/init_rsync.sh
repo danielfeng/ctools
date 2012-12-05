@@ -2,21 +2,20 @@
 # Author : danielfeng
 # E-Mail : danielfancy@gmail.com
 
-
 CONF=/home/ctools/conf
-RSYNC=/etc/
+ETC=/etc/
 
-
-
-if [ -f ${YUM}/rsyncd.conf ] ; then
-    mv ${YUM}/rsyncd.conf ${YUM}/rsyncd.conf.original
-    cp ${CONF}/rsyncd.conf ${YUM}
-    chmod 644 ${YUM}/rsyncd.conf
-    chown root:root ${YUM}/rsyncd.conf
+if [ -f ${ETC}/rsyncd.conf ] ; then
+    mv ${ETC}/rsyncd.conf ${ETC}/rsyncd.conf.original
+    cp ${CONF}/rsyncd.conf ${ETC}
+    chmod 644 ${ETC}/rsyncd.conf
+    chown root:root ${ETC}/rsyncd.conf
 else
-    cp ${CONF}/rsyncd.conf ${YUM}
-    chmod 644 ${YUM}/rsyncd.conf
-    chown root:root ${YUM}/rsyncd.conf
+    cp ${CONF}/rsyncd.conf ${ETC}
+    chmod 644 ${ETC}/rsyncd.conf
+    chown root:root ${ETC}/rsyncd.conf
 fi
 
 /usr/bin/rsync --daemon
+
+echo "Usage:数据源执行 rsync -aSvh --delete /home/coremail root@IP地址::coremail"
