@@ -11,3 +11,10 @@ DATE=`date +"%Y-%m-%d"`
 cd $PUBLIC
 svn cleanup public
 svn co $URL > $LOGS/svnsync.$DATE.log &
+
+for i in `find ${LOGS} -type f -mtime +6 -name 'svnsync.*.log'` ; do
+    if [ ! -z $i ]; then
+       rm -f $i
+    fi  
+done
+
