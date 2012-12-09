@@ -23,6 +23,7 @@ echo "export LC_ALL=zh_CN.gbk" >> /root/.bashrc
 echo "export LANG=zh_CN.gbk" >> /root/.bashrc
 echo "export HISTTIMEFORMAT=\"%Y-%m-%d_%H:%M:%S \" " >> /root/.bashrc
 
+echo "export CTOOLS=/home/ctools" >> /root/.bashrc
 echo "export GROUPSEND_HOME=/home/groupsend/" >> /root/.bashrc
 
 echo "export PATH=$PATH:/home/coremail/bin/" >> /root/.bashrc
