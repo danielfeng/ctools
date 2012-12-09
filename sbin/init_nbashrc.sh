@@ -24,6 +24,7 @@ BASHRC_LIST=(
 "export HISTTIMEFORMAT=\"%Y-%m-%d_%H:%M:%S \" " \
 "export GROUPSEND_HOME=/home/groupsend" \
 "export PATH=$PATH:/home/coremail/bin" \
+"export CTOOLS=/home/ctools" \
 )
 #BASHRC_LIST=$IFS
 IFS="\\"
