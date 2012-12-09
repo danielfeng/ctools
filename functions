@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# Author : danielfeng
+# E-Mail : danielfancy@gmail.com
+
+get_coremail_info() {
+    HOSTNAME=$(grep cm_logs_db /home/coremail/conf/datasources.cf -5 |grep Server |awk -F\" '{print $2}')
+    USERNAME=$(grep cm_logs_db /home/coremail/conf/datasources.cf -5 |grep User|awk -F\" '{print $2}')
+    PASSWORD=$(grep cm_logs_db /home/coremail/conf/datasources.cf -5 |grep Password |awk -F\" '{print $2}')
+    DBNAME=$(grep cm_logs_db /home/coremail/conf/datasources.cf -5 | grep Database|awk -F\" '{print $2}')
+    PORT=$(grep cm_logs_db /home/coremail/conf/datasources.cf -5 | grep Port |awk -F\" '{print $2}')
+}
+
+get_date_format(){
+    DATE_B8=`date +%F -d'-8 day'`
+    DATE_B1=`date +%F -d'-1 day'`
+}
+
+i_need_yum() {
+    #
+    for i in $@ ; do
+       rpm --quiet -q $i || yum -y install $i
+    done
+    unset i
+}
+
+chk_on() {
+    unset i
+    for i in $@ ; do
+        LANG=C chkconfig $i on
+    done
+}
+
+chk_off() {
+    unset i
+    for i in $@ ; do
+        LANG=C chkconfig $i off
+    done
+}
+
+srv_restart() {
+    unset i
+    for i in $@ ; do
+        service $i restart
+    done
+}
