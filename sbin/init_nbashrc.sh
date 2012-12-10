@@ -2,7 +2,7 @@
 # Author : danielfeng
 # E-Mail : danielfancy@gmail.com
 
-BASHRC=/root/.bashrc
+BASHRC=~/.bashrc
 
 PS1=`grep "PS1=" ${BASHRC}`
 if [[ -z ${PS1} ]] ; then
@@ -34,4 +34,4 @@ for i in ${BASHRC_LIST[@]} ; do
 done
 IFS=${BASHRC_LIST}
 
-source /root/.bashrc
+source ~/.bashrc
