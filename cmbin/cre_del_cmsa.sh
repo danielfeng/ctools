@@ -43,5 +43,5 @@ del | -d )
 add | -a )
     createsa;;
 *)
-    echo "usage: $0 -a add $ADMIN sa -d del $ADMIN sa";;
+    echo "Usage: $0 -a add $ADMIN sa -d del $ADMIN sa";;
 esac

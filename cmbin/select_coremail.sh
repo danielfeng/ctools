@@ -12,6 +12,10 @@ do
         ln -nsf ${s} /home/coremail
         ${COREMAIL_HOME}/sbin/cmctrl.sh start
         exit
+    elif [[ ! -e ${COREMAIL_HOME}/sbin/cmctrl.sh ]] ; then
+        ln -nsf ${s} /home/coremail
+        ${COREMAIL_HOME}/sbin/cmctrl.sh start
+        exit
     else
         ${COREMAIL_HOME}/sbin/cmctrl.sh stop
         ln -nsf ${s} /home/coremail
@@ -19,5 +23,3 @@ do
         exit
     fi
 done
-
-
