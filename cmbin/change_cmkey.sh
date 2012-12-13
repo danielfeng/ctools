@@ -4,7 +4,7 @@
 
 
 #FINDGLOBAL=`find /home/coremail* -name "global.cf"`
-FINDGLOBAL=`ls -1 /home/coremail*/conf/global.cf | grep -v "/home/coremail/conf/global.cf$"`
+FINDGLOBAL=`locate global.cf | grep -v ".tpl"`
 NLICENSE="License=\"$1\""
 
 if [[ -z $1 ]] ; then
