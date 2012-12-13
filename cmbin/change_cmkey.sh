@@ -3,7 +3,8 @@
 # E-mail : danielfancy@gmail.com
 
 
-FINDGLOBAL=`find /home/coremail* -name "global.cf"`
+#FINDGLOBAL=`find /home/coremail* -name "global.cf"`
+FINDGLOBAL=`ls -1 /home/coremail*/conf/global.cf | grep -v "/home/coremail/conf/global.cf$"`
 NLICENSE="License=\"$1\""
 
 if [[ -z $1 ]] ; then
