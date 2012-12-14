@@ -11,8 +11,9 @@ CMPROC=`ps aux | grep coremail | grep "/home/coremail/bin/coremail" | grep -v gr
 
 select s in ${CMDIR[@]}
 do
-    [[ -z ${s} ]] && echo "input error" && exit
-    if [[ -z ${CMPROC} ]] ; then
+    if [[ -z ${s} ]] ; then  
+        echo "input error" 
+    elif [[ -z ${CMPROC} ]] ; then
         ln -nsf ${s} /home/coremail
         ${COREMAIL_HOME}/sbin/cmctrl.sh start
         exit
