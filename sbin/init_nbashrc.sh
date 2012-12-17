@@ -9,6 +9,10 @@ if [[ -z ${PS1} ]] ; then
     echo 'PS1="\[\e[01;33m\A \e[01;35m\u\e[01;30m@\e[01;32m\h\] \e[0m[\e[01;34m\W\e[0m] "' >> ${BASHRC}
 fi
 
+OLDRM="alias rm='rm -id'"
+NEWRM="alias rm='rm -i --preserve-root'"
+grep -q "${OLDRM}" ${BASHRC} && sed -i "s@${OLDRM}@${NEWRM}@g" ${BASHRC}
+
 BASHRC_LIST=(
 "alias grep='grep --color=auto'" \
 "alias egrep='egrep --color=auto'" \
