@@ -27,7 +27,7 @@ BASHRC_LIST=(
 "export LANG=zh_CN.gbk" \
 "export HISTTIMEFORMAT=\"%Y-%m-%d_%H:%M:%S \" " \
 "export GROUPSEND_HOME=/home/groupsend" \
-"export PATH=$PATH:/home/coremail/bin" \
+"export PATH=\$PATH:/home/coremail/bin" \
 "export CTOOLS=/home/ctools" \
 )
 #BASHRC_LIST=$IFS
