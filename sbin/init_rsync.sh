@@ -12,10 +12,14 @@ if [ -f ${ETC}/rsyncd.conf ] ; then
     cp ${CONF}/rsyncd.conf ${ETC}
     chmod 644 ${ETC}/rsyncd.conf
     chown root:root ${ETC}/rsyncd.conf
+    chkconfig rsync on
+    service xinetd reload
 else
     cp ${CONF}/rsyncd.conf ${ETC}
     chmod 644 ${ETC}/rsyncd.conf
     chown root:root ${ETC}/rsyncd.conf
+    chkconfig rsync on
+    service xinetd reload
 fi
 
 /usr/bin/rsync --daemon
