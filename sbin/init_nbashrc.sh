@@ -37,5 +37,4 @@ for i in ${BASHRC_LIST[@]} ; do
     [[ -z ${STRING} ]] && echo "$i" >> ${BASHRC}
 done
 IFS=${BASHRC_LIST}
-
 #source ~/.bashrc
