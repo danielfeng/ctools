@@ -6,10 +6,10 @@ HOSTNAME=$(grep cm_logs_db /home/coremail/conf/datasources.cf -5 | grep Server |
 USERNAME=$(grep cm_logs_db /home/coremail/conf/datasources.cf -5 | grep User|awk -F\" '{print $2}')
 PASSWORD=$(grep cm_logs_db /home/coremail/conf/datasources.cf -5 | grep Password |awk -F\" '{print $2}')
 PORT=$(grep cm_logs_db /home/coremail/conf/datasources.cf -5 | grep Port |awk -F\" '{print $2}')
-ARRAY=$(grep "Database=" /home/coremail/conf/datasources.cf | awk -F\" '{print $2}' | sort | uniq)
+ARRAY=$(grep "Database=" /home/coremail/conf/datasources.cf | awk -F\" '{print $2}' | sort -u)
 DATE=$(date +%Y%m%d)
 
-MYSQLBAK_LOG="/home/coremail/logs/backup_mysql.log"
+#MYSQLBAK_LOG="/home/coremail/logs/backup_mysql.log"
 MYSQLDUMP="/home/coremail/mysql/bin/mysqldump"
 
 BAK_DIR=/home/cmbackup
