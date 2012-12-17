@@ -10,12 +10,17 @@ CMMDIP=`grep -E "IP|MDID" ${CMDIR}/hosts.cf | grep -B 1 "MDID" | xargs -n2 | awk
 PACKAGE=$1
 PACKAGENAME=`grep "install.sh" ${PACKAGE}`
 CMSBIN=/home/coremail/sbin
-CMCONF=/home/coremail/conf
-CMMAINCONF=/home/coremail/var/mainconfig
+CMCONF_LIST=("/home/coremail/conf" "/home/coremail/var/mainconfig")
+CMDATACF="/home/coremail/conf/datasources.cf"
 CMPROC=`ps aux | grep coremail | grep "/home/coremail/bin/coremail" | grep -v grep`
 MYSQL=/home/coremail/mysql/bin/mysql
 DATE=`date +%Y%m%d`
 
+
+for i in ${CMIP[@]} ; do
+    echo "input $i root password"
+    ssh-copy-id -i ${CMDIR}/.coremail.pub root@${i} 
+done
 
 [[ -z ${PACKAGE} ]] || [[ -z ${PACKAGENAME} ]] && echo "Usage: $0 coremail install package name" && exit
 
@@ -29,27 +34,40 @@ if [[ -d ${COREMAIL_HOME} ]]; then
 fi
 
 change_cmconf(){
+	HOSTNAME=$(grep cm_logs_db ${CMDATACF} -5 | grep Server |awk -F\" '{print $2}')
+	sed -i 's@${HOSTNAME}@${CMMDIP}@g' ${CMDATACF}
+	for c in ${CMCONF_LIST[@]}; do
+		\cp ${CMDIR}/*.cf ${c}
+	done
+	chown -R coremail:coremail ${COREMAIL_HOME}
+}
+
+grants_mysql(){
 	HOSTNAME=$(grep cm_logs_db /home/coremail/conf/datasources.cf -5 | grep Server |awk -F\" '{print $2}')
 	USERNAME=$(grep cm_logs_db /home/coremail/conf/datasources.cf -5 | grep User|awk -F\" '{print $2}')
 	PASSWORD=$(grep cm_logs_db /home/coremail/conf/datasources.cf -5 | grep Password |awk -F\" '{print $2}')
 	PORT=$(grep cm_logs_db /home/coremail/conf/datasources.cf -5 | grep Port |awk -F\" '{print $2}')
 	GPASSWORD=`mysql -e "show grants\G;" -uroot -p${PASSWORD} -P${PORT} -h${HOSTNAME} | grep PRIVILEGES | awk '{print $14}'`
-	for g in ${CMIP} ; do
+	for g in ${CMIP[@]} ; do
           GRANTS="GRANT ALL PRIVILEGES ON *.* TO 'coremail'@'${g}' IDENTIFIED BY PASSWORD ${GPASSWORD};"
-          #echo "$GRANTS"
           $MYSQL -e "$GRANTS" -uroot -p${PASSWORD} -P${PORT} -h${HOSTNAME}
 	done
 
 }
 
+${COREMAIL_HOME}/sbin/cmctrl.sh stop
 
-for i in ${CMIP[@]} ; do
-    echo "input $i root password"
-    ssh-copy-id -i ${CMDIR}/.coremail.pub root@${i} 
-done
+remote_ctrl(){
+	for t in `grep -v "${LOCAL_IP}" ${CMIP[@]}` ; do
+		scp -i ${CMDIR}/.coremailrsa -r ${COREMAIL_HOME} root@${t}:/home/
+	done
 
-
-
-for t in ${CMIP} ; do
-    ssh -t root@$t "${CMSBIN}/cmctrl.sh restart"
-done
+	for h in ${CMHOSTS[@]}; do
+		OLDHOSTID=`grep "Hostid=" ${COREMAIL_HOME}/conf/coremail.cf `
+		NEWHOSTID="Hostid=\"${h}\""
+		SEDCMCF=`sed -i 's@${OLDHOSTID}@${NEWHOSTID}@g' ${COREMAIL_HOME}/conf/coremail.cf`
+		ssh -i ${CMDIR}/.coremailrsa -t root@${t} "${SEDCMCF}"
+	done
+	
+}
+    
