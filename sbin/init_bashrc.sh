@@ -1,32 +1,40 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Author : danielfeng
-# E-mail : danielfancy@gmail.com
+# E-Mail : danielfancy@gmail.com
 
-echo 'PS1="\[\e[01;33m\A \e[01;35m\u\e[01;30m@\e[01;32m\h\] \e[0m[\e[01;34m\W\e[0m] "' >> /root/.bashrc
-echo "alias grep='grep --color=auto'" >> /root/.bashrc
-echo "alias egrep='egrep --color=auto'" >> /root/.bashrc
-echo "alias fgrep='fgrep --color=auto'" >> /root/.bashrc
-echo "alias ls='ls --color=auto'" >> /root/.bashrc
-echo "alias lt='ls -lt'" >> /root/.bashrc
-echo "alias la='ls -A'" >> /root/.bashrc
-echo "alias c='clear'" >> /root/.bashrc
-echo "alias rm='rm -i --preserve-root'" >> /root/.bashrc
-#echo "alias chgrp='chgrp --preserve-root'" >> /root/.bashrc
-#echo "alias chown='chown --preserve-root'" >> /root/.bashrc
-#echo "alias chmod='chmod --preserve-root'" >> /root/.bashrc
+BASHRC=~/.bashrc
 
+PS1=`grep "PS1=" ${BASHRC}`
+if [[ -z ${PS1} ]] ; then
+    echo 'PS1="\[\e[01;33m\A \e[01;35m\u\e[01;30m@\e[01;32m\h\] \e[0m[\e[01;34m\W\e[0m] "' >> ${BASHRC}
+fi
 
-echo "export COREMAIL_HOME=/home/coremail" >> /root/.bashrc
-echo "export JAVA_HOME=/home/coremail/java/jre1.6.0_11" >> /root/.bashrc
-echo "export TOMCAT_HOME=/home/coremail/java/tomcat" >> /root/.bashrc
-echo "export LC_ALL=zh_CN.gbk" >> /root/.bashrc
-echo "export LANG=zh_CN.gbk" >> /root/.bashrc
-echo "export HISTTIMEFORMAT=\"%Y-%m-%d_%H:%M:%S \" " >> /root/.bashrc
+OLDRM="alias rm='rm -id'"
+NEWRM="alias rm='rm -i --preserve-root'"
+grep -q "${OLDRM}" ${BASHRC} && sed -i "s@${OLDRM}@${NEWRM}@g" ${BASHRC}
 
-echo "export CTOOLS=/home/ctools" >> /root/.bashrc
-echo "export GROUPSEND_HOME=/home/groupsend/" >> /root/.bashrc
-
-echo "export PATH=$PATH:/home/coremail/bin/" >> /root/.bashrc
-
-
-source /root/.bashrc
+BASHRC_LIST=(
+"alias grep='grep --color=auto'" \
+"alias egrep='egrep --color=auto'" \
+"alias ls='ls --color=auto'" \
+"alias lt='ls -lt'" \
+"alias la='ls -A'" \
+"alias c='clear'" \
+"export COREMAIL_HOME=/home/coremail" \
+"export JAVA_HOME=/home/coremail/java/jre1.6.0_11" \
+"export TOMCAT_HOME=/home/coremail/java/tomcat" \
+"export LC_ALL=zh_CN.gbk" \
+"export LANG=zh_CN.gbk" \
+"export HISTTIMEFORMAT=\"%Y-%m-%d_%H:%M:%S \" " \
+"export GROUPSEND_HOME=/home/groupsend" \
+"export PATH=\$PATH:/home/coremail/bin" \
+"export CTOOLS=/home/ctools" \
+)
+#BASHRC_LIST=$IFS
+IFS="\\"
+for i in ${BASHRC_LIST[@]} ; do
+    STRING=`grep $i ${BASHRC}`
+    [[ -z ${STRING} ]] && echo "$i" >> ${BASHRC}
+done
+IFS=${BASHRC_LIST}
+#source ~/.bashrc
