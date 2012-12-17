@@ -38,4 +38,4 @@ for i in ${BASHRC_LIST[@]} ; do
 done
 IFS=${BASHRC_LIST}
 
-source ~/.bashrc
+#source ~/.bashrc
