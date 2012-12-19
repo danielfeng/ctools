@@ -34,8 +34,9 @@ if [[ -d ${COREMAIL_HOME} ]]; then
 	    ${COREMAIL_HOME}/sbin/cmctrl.sh stop
     fi
 	mv ${COREMAIL_HOME} coremail_${DATE}_dn 
-	sh ${PACKAGE}
 fi
+
+sh ${PACKAGE}
 
 change_cmconf(){
 	HOSTNAME=$(grep cm_logs_db ${CMDATACF} -5 | grep Server |awk -F\" '{print $2}')
