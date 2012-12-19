@@ -8,8 +8,8 @@ CMIP=`grep -E "\[|IP" ${CMDIR}/hosts.cf | xargs -n2 | awk '{print $2" "$1}' | se
 CMHOSTS=`grep -E "\[|IP" ${CMDIR}/hosts.cf | xargs -n2 | awk '{print $2" "$1}' | sed 's/IP=//;s/\[//;s/\]//' | awk '{print $2}'` 
 CMMDIP=`grep -E "IP|MDID" ${CMDIR}/hosts.cf | grep -B 1 "MDID" | xargs -n2 | awk  '{print $1}' | awk -F "=" '{print $2}'`
 CM_IH=`grep -E "\[|IP" ${CMDIR}/hosts.cf | xargs -n2 | awk '{print $2":"$1}' | sed 's/IP=//;s/\[//;s/\]//'`
-PACKAGE=$1
-PACKAGENAME=`grep "install.sh" ${PACKAGE}`
+#PACKAGE=$1
+#PACKAGENAME=`grep "install.sh" ${PACKAGE}`
 CMSBIN=/home/coremail/sbin
 CMCONF_LIST=("/home/coremail/conf" "/home/coremail/var/mainconfig")
 CMDATACF="/home/coremail/conf/datasources.cf"
@@ -22,28 +22,21 @@ CM_IH=`grep -E "\[|IP" ${CMDIR}/hosts.cf | xargs -n2 | awk '{print $2":"$1}' | s
 
 
 for i in ${CMIP[@]} ; do
-    echo "input ${i} root password"
+    #echo "input ${i} root password"
     ssh-copy-id -i ${CMDIR}/.coremail.pub root@${i} 
 done
 
-[[ -z ${PACKAGE} ]] || [[ -z ${PACKAGENAME} ]] && echo "Usage: $0 coremail install package name" && exit
 
 
 if [[ -d ${COREMAIL_HOME} ]]; then
     if [[ ! -z ${CMPROC} ]] ; then
 	    ${COREMAIL_HOME}/sbin/cmctrl.sh stop
     fi
-	mv ${COREMAIL_HOME} coremail_${DATE}_dn 
+else
+	echo "Not install coremail" && exit
 fi
 
-sh ${PACKAGE}
 
-install_url() {
-    LOCAL_IP=`/sbin/ifconfig -a | awk '/inet/{print $2}' | awk -F: '{print $2}' | grep -v "127.0.0.1" | grep -v '^$' | sort`
-    WEBINSTPATH="/webinst/"
-    echo "Unpack OK! Browse the URL below to configure coremail:"
-    echo "      http://${LOCAL_IP}${WEBINSTPATH}"
-}
 
 change_cmconf(){
 	HOSTNAME=$(grep cm_logs_db ${CMDATACF} -5 | grep Server |awk -F\" '{print $2}')
@@ -68,7 +61,6 @@ grants_mysql(){
 
 }
 grants_mysql
-grants_mysql
 
 ${COREMAIL_HOME}/sbin/cmctrl.sh stop
 
@@ -91,6 +83,8 @@ remote_change(){
 		MASHIP=`grep "MainAdminSvrHost=" ${COREMAIL_HOME}/conf/coremail.cf`
     	NMASHIP="MainAdminSvrHost\=\"${CMMDIP}\""
 		ssh -i ${CMDIR}/.coremailrsa -t root@${mi} "sed -i 's@${MASHIP}@${NMASHIP}@g' ${COREMAIL_HOME}/conf/coremail.cf"
+		ssh -i ${CMDIR}/.coremailrsa -t root@${mi} "sed -i 's@127.0.0.1@${CMMDIP}@g' ${COREMAIL_HOME}/bin/mysql_cm"
+
 	done
 
 	for im in ${NOMDIP[@]}; do
@@ -106,7 +100,7 @@ remote_change(){
 }
 remote_change
 
-install_url
+
 
 
     
