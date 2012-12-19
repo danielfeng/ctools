@@ -38,6 +38,13 @@ fi
 
 sh ${PACKAGE}
 
+install_url() {
+    LOCAL_IP=`/sbin/ifconfig -a | awk '/inet/{print $2}' | awk -F: '{print $2}' | grep -v "127.0.0.1" | grep -v '^$' | sort`
+    WEBINSTPATH="/webinst/"
+    echo "Unpack OK! Browse the URL below to configure coremail:"
+    echo "      http://${LOCAL_IP}${WEBINSTPATH}"
+}
+
 change_cmconf(){
 	HOSTNAME=$(grep cm_logs_db ${CMDATACF} -5 | grep Server |awk -F\" '{print $2}')
 	sed -i 's@${HOSTNAME}@${CMMDIP}@g' ${CMDATACF}
@@ -60,6 +67,7 @@ grants_mysql(){
 	done
 
 }
+grants_mysql
 grants_mysql
 
 ${COREMAIL_HOME}/sbin/cmctrl.sh stop
@@ -98,6 +106,7 @@ remote_change(){
 }
 remote_change
 
+install_url
 
 
     
