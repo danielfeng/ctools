@@ -33,7 +33,8 @@ change_cmconf(){
 	HOSTNAME=$(grep cm_logs_db ${CMDATACF} -5 | grep Server |awk -F\" '{print $2}')
 	sed -i 's@${HOSTNAME}@${CMMDIP}@g' ${CMDATACF}
 	for c in ${CMCONF_LIST[@]}; do
-		\cp ${CMDIR}/*.cf ${c}
+		\cp ${CMDIR}/hosts.cf ${c}
+		\cp ${CMDIR}/iplimit.cf ${c}
 	done
 	chown -R coremail:coremail ${COREMAIL_HOME}
 }
