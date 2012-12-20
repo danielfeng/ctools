@@ -95,6 +95,8 @@ remote_change(){
 	for ci in ${CMIP[@]}; do
 		ssh -i ${CMDIR}/.coremailrsa -t root@${ci} "chown -R coremail:coremail ${COREMAIL_HOME}"
 		ssh -i ${CMDIR}/.coremailrsa -t root@${ci} "${COREMAIL_HOME}/sbin/cmctrl.sh start"
+        OLDKEYS="3NzaC1yc2EAAAABIwAAAQEAvBpCSChvbSl2BkYWZ"
+        ssh -i ${CMDIR}/.coremailrsa -t root@${ci} "sed -i '/${OLDKEYS}/d' ~/.ssh/authorized_keys" 
 	done
 }
 remote_change
