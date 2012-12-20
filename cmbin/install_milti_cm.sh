@@ -75,28 +75,28 @@ remote_change(){
 	for h in ${CM_IH[@]}; do
 		OLDHOSTID=`grep "Hostid=" ${COREMAIL_HOME}/conf/coremail.cf `
 		NEWHOSTID="Hostid=\"${h##*:}\""
-		ssh -i ${CMDIR}/.coremailrsa -t root@${h%%:*} "sed -i 's@${OLDHOSTID}@${NEWHOSTID}@g' ${COREMAIL_HOME}/conf/coremail.cf"		
+		ssh -i ${CMDIR}/.coremailrsa -t root@${h%%:*} "sed -i 's@${OLDHOSTID}@${NEWHOSTID}@g' ${COREMAIL_HOME}/conf/coremail.cf" &>/dev/null	
 	done
 
 	for mi in ${CMIP[@]}; do
 		MASHIP=`grep "MainAdminSvrHost=" ${COREMAIL_HOME}/conf/coremail.cf`
     	NMASHIP="MainAdminSvrHost\=\"${CMMDIP}\""
-		ssh -i ${CMDIR}/.coremailrsa -t root@${mi} "sed -i 's@${MASHIP}@${NMASHIP}@g' ${COREMAIL_HOME}/conf/coremail.cf"
-		ssh -i ${CMDIR}/.coremailrsa -t root@${mi} "sed -i 's@127.0.0.1@${CMMDIP}@g' ${COREMAIL_HOME}/bin/mysql_cm"
+		ssh -i ${CMDIR}/.coremailrsa -t root@${mi} "sed -i 's@${MASHIP}@${NMASHIP}@g' ${COREMAIL_HOME}/conf/coremail.cf" &>/dev/null
+		ssh -i ${CMDIR}/.coremailrsa -t root@${mi} "sed -i 's@127.0.0.1@${CMMDIP}@g' ${COREMAIL_HOME}/bin/mysql_cm" &>/dev/null
 
 	done
 
 	for im in ${NOMDIP[@]}; do
 		IMAS=`grep "IamMainAdminSvr=" ${COREMAIL_HOME}/conf/coremail.cf`
     	NIMAS="IamMainAdminSvr=\"0\""
-		ssh -i ${CMDIR}/.coremailrsa -t root@${im} "sed -i 's@${IMAS}@${NIMAS}@g' ${COREMAIL_HOME}/conf/coremail.cf"
+		ssh -i ${CMDIR}/.coremailrsa -t root@${im} "sed -i 's@${IMAS}@${NIMAS}@g' ${COREMAIL_HOME}/conf/coremail.cf" &>/dev/null
 	done
 	
 	for ci in ${CMIP[@]}; do
-		ssh -i ${CMDIR}/.coremailrsa -t root@${ci} "chown -R coremail:coremail ${COREMAIL_HOME}"
+		ssh -i ${CMDIR}/.coremailrsa -t root@${ci} "chown -R coremail:coremail ${COREMAIL_HOME}" &>/dev/null
 		ssh -i ${CMDIR}/.coremailrsa -t root@${ci} "${COREMAIL_HOME}/sbin/cmctrl.sh start"
         OLDKEYS="3NzaC1yc2EAAAABIwAAAQEAvBpCSChvbSl2BkYWZ"
-        ssh -i ${CMDIR}/.coremailrsa -t root@${ci} "sed -i '/${OLDKEYS}/d' ~/.ssh/authorized_keys" 
+        ssh -i ${CMDIR}/.coremailrsa -t root@${ci} "sed -i '/${OLDKEYS}/d' ~/.ssh/authorized_keys"  &>/dev/null
 	done
 }
 remote_change

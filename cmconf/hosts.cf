@@ -1,6 +1,7 @@
 [MailWebA]
 IP="192.168.0.22"
-ProgramsList="RmiServer,adminsvr,wmsvr,session,pop3svr,scequerysvr,mtasvr,deliveragent,imapsvr,timedsend,convertlog,liveupdate,sysmonitor,antivirus,freshclam"
+ProgramsList="RmiServer,adminsvr,wmsvr,session,pop3svr,scequerysvr,mtasvr,deliveragent,imapsvr,timedsend,convertlog,liveupdate,sysmonitor"
+#ProgramsList="RmiServer,adminsvr,wmsvr,session,pop3svr,scequerysvr,mtasvr,deliveragent,imapsvr,timedsend,convertlog,liveupdate,sysmonitor,antivirus,freshclam"
 # WebServerName=""
 WebLoginParameters = "webprefix=@login"
 WebServerID="1"
