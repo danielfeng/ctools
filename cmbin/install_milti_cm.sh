@@ -13,7 +13,6 @@ CM_IH=`grep -E "\[|IP" ${CMDIR}/hosts.cf | xargs -n2 | awk '{print $2":"$1}' | s
 CMCONF_LIST=("/home/coremail/conf" "/home/coremail/var/mainconfig")
 CMDATACF="/home/coremail/conf/datasources.cf"
 CMPROC=`ps aux | grep coremail | grep "/home/coremail/bin/coremail" | grep -v grep`
-DATE=`date +%Y%m%d`
 NOMDIP=`grep -E "\[|IP" ${CMDIR}/hosts.cf | xargs -n2 | awk '{print $2" "$1}' | sed 's/IP=//;s/\[//;s/\]//' | awk '{print $1}' | grep -v "${CMMDIP}"`
 NOLOCALIP=`grep -E "\[|IP" ${CMDIR}/hosts.cf | xargs -n2 | awk '{print $2" "$1}' | sed 's/IP=//;s/\[//;s/\]//' | awk '{print $1}' | grep -v "${LOCAL_IP}"`
 CM_IH=`grep -E "\[|IP" ${CMDIR}/hosts.cf | xargs -n2 | awk '{print $2":"$1}' | sed 's/IP=//;s/\[//;s/\]//' | sed "s@${LOCAL_IP}@127.0.0.1@g" | sort -r`
@@ -24,7 +23,7 @@ CM_IH=`grep -E "\[|IP" ${CMDIR}/hosts.cf | xargs -n2 | awk '{print $2":"$1}' | s
 [[ ! -f ${CMDIR}/.coremailrsa ]] && exit
 
 for i in ${CMIP[@]} ; do
-    echo "input ${i} root password"
+    echo "Input ${i} root password"
     ssh-copy-id -i ${CMDIR}/.coremail.pub root@${i} &>/dev/null
 done
 
