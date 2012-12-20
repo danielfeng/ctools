@@ -53,7 +53,7 @@ grants_mysql(){
 
 }
 
-if [[ ! -d ${COREMAIL_HOME} ]]; then
+if [[ -d ${COREMAIL_HOME} ]]; then
     if [[ ! -z ${CMPROC} ]] ; then
         change_cmconf
         grants_mysql
