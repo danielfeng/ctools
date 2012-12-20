@@ -3,39 +3,30 @@
 # E-mail : danielfancy@gmail.com
 
 CMDIR=/home/ctools/cmconf
+CMSBIN=/home/coremail/sbin
+MYSQL=${COREMAIL_HOME}/mysql/bin/mysql
 LOCAL_IP=`/sbin/ifconfig -a | awk '/inet/{print $2}' | awk -F: '{print $2}' | grep -v "127.0.0.1" | grep -v '^$' | sort`
 CMIP=`grep -E "\[|IP" ${CMDIR}/hosts.cf | xargs -n2 | awk '{print $2" "$1}' | sed 's/IP=//;s/\[//;s/\]//' | awk '{print $1}'| sed "s@${LOCAL_IP}@127.0.0.1@g" | sort -r`
 CMHOSTS=`grep -E "\[|IP" ${CMDIR}/hosts.cf | xargs -n2 | awk '{print $2" "$1}' | sed 's/IP=//;s/\[//;s/\]//' | awk '{print $2}'` 
 CMMDIP=`grep -E "IP|MDID" ${CMDIR}/hosts.cf | grep -B 1 "MDID" | xargs -n2 | awk  '{print $1}' | awk -F "=" '{print $2}'`
 CM_IH=`grep -E "\[|IP" ${CMDIR}/hosts.cf | xargs -n2 | awk '{print $2":"$1}' | sed 's/IP=//;s/\[//;s/\]//'`
-#PACKAGE=$1
-#PACKAGENAME=`grep "install.sh" ${PACKAGE}`
-CMSBIN=/home/coremail/sbin
 CMCONF_LIST=("/home/coremail/conf" "/home/coremail/var/mainconfig")
 CMDATACF="/home/coremail/conf/datasources.cf"
 CMPROC=`ps aux | grep coremail | grep "/home/coremail/bin/coremail" | grep -v grep`
-MYSQL=${COREMAIL_HOME}/mysql/bin/mysql
 DATE=`date +%Y%m%d`
 NOMDIP=`grep -E "\[|IP" ${CMDIR}/hosts.cf | xargs -n2 | awk '{print $2" "$1}' | sed 's/IP=//;s/\[//;s/\]//' | awk '{print $1}' | grep -v "${CMMDIP}"`
 NOLOCALIP=`grep -E "\[|IP" ${CMDIR}/hosts.cf | xargs -n2 | awk '{print $2" "$1}' | sed 's/IP=//;s/\[//;s/\]//' | awk '{print $1}' | grep -v "${LOCAL_IP}"`
 CM_IH=`grep -E "\[|IP" ${CMDIR}/hosts.cf | xargs -n2 | awk '{print $2":"$1}' | sed 's/IP=//;s/\[//;s/\]//' | sed "s@${LOCAL_IP}@127.0.0.1@g" | sort -r`
 
+[[ ! -f ${CMDIR}/hosts.cf ]] && exit
+[[ ! -f ${CMDIR}/iplimit.cf ]] && exit
+[[ ! -f ${CMDIR}/.coremail.pub ]] && exit
+[[ ! -f ${CMDIR}/.coremailrsa ]] && exit
 
 for i in ${CMIP[@]} ; do
     #echo "input ${i} root password"
     ssh-copy-id -i ${CMDIR}/.coremail.pub root@${i} 
 done
-
-
-
-if [[ -d ${COREMAIL_HOME} ]]; then
-    if [[ ! -z ${CMPROC} ]] ; then
-	    ${COREMAIL_HOME}/sbin/cmctrl.sh stop
-    fi
-else
-	echo "Not install coremail" && exit
-fi
-
 
 
 change_cmconf(){
@@ -46,7 +37,7 @@ change_cmconf(){
 	done
 	chown -R coremail:coremail ${COREMAIL_HOME}
 }
-change_cmconf
+
 
 grants_mysql(){
 	HOSTNAME=$(grep cm_logs_db ${CMDATACF} -5 | grep Server |awk -F\" '{print $2}')
@@ -60,7 +51,15 @@ grants_mysql(){
 	done
 
 }
-grants_mysql
+
+if [[ ! -d ${COREMAIL_HOME} ]]; then
+    if [[ ! -z ${CMPROC} ]] ; then
+        change_cmconf
+        grants_mysql
+    fi
+else
+	echo "Not install coremail" && exit
+fi
 
 ${COREMAIL_HOME}/sbin/cmctrl.sh stop
 
@@ -72,7 +71,6 @@ remote_scp(){
 remote_scp
 
 remote_change(){
-	
 	for h in ${CM_IH[@]}; do
 		OLDHOSTID=`grep "Hostid=" ${COREMAIL_HOME}/conf/coremail.cf `
 		NEWHOSTID="Hostid=\"${h##*:}\""
