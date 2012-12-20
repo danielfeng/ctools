@@ -24,8 +24,8 @@ CM_IH=`grep -E "\[|IP" ${CMDIR}/hosts.cf | xargs -n2 | awk '{print $2":"$1}' | s
 [[ ! -f ${CMDIR}/.coremailrsa ]] && exit
 
 for i in ${CMIP[@]} ; do
-    #echo "input ${i} root password"
-    ssh-copy-id -i ${CMDIR}/.coremail.pub root@${i} 
+    echo "input ${i} root password"
+    ssh-copy-id -i ${CMDIR}/.coremail.pub root@${i} &>/dev/null
 done
 
 
