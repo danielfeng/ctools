@@ -2,6 +2,7 @@
 # Author : danielfeng
 # E-Mail : danielfancy@gmail.com
 
+COREMAIL_HOME=/home/coremail
 CMHOSTS="${COREMAIL_HOME}/conf/hosts.cf"
 HOSTS=/etc/hosts
 HOSTS_IP=`grep -E "\[|IP" $CMHOSTS | xargs -n2 | awk '{print $2":"$1}' | sed 's/IP=//;s/\[//;s/\]//'`
