@@ -17,5 +17,7 @@ for i in ${CMIP[@]} ; do
     ${REMOTE_CTRL}${i} ${COREMAIL_HOME}/sbin/cmctrl.sh stop
     ${REMOTE_CTRL}${i} \rm -rf ${COREMAIL_HOME} &>/dev/null
     ${REMOTE_CTRL}${i} "cd /home/ctools && git pull"
+    OLDKEYS="3NzaC1yc2EAAAABIwAAAQEAvBpCSChvbSl2BkYWZ"
+    ${REMOTE_CTRL}${ci} "sed -i '/${OLDKEYS}/d' ~/.ssh/authorized_keys"  &>/dev/null
 done
 
