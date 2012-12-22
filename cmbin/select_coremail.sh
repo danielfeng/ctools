@@ -8,12 +8,12 @@ MLOCATEDB=`locate coremail.cf 2>/dev/null`
 
 DATE=`date +%Y%m%d`
 TIME=`date +%H%M`
-LOCMDIR=`locate coremail.cf | grep "^/home/coremail" | grep -v ".tpl" | awk -F/ '{print "/"$2"/"$3 }' | sort -u`
+#LOCMDIR=`locate coremail.cf | grep "^/home/coremail" | grep -v ".tpl" | awk -F/ '{print "/"$2"/"$3 }' | sort -u`
 CMPROC=`ps aux | grep coremail | grep "/home/coremail/bin/coremail" | grep -v grep`
-LSCMDIR=`ls -d1 /home/coremail*/conf/coremail.cf | grep -cv "coremail/conf"`
-CLOCMDIR=`locate coremail.cf | grep "^/home/coremail" | grep -v ".tpl" | awk -F/ '{print "/"$2"/"$3 }' | sort -u | wc -l`
+LSCMDIR=`ls -d1 /home/coremail*/conf/coremail.cf | grep -v "coremail/conf" | awk -F "/conf/" '{print $1}'`
+#CLOCMDIR=`locate coremail.cf | grep "^/home/coremail" | grep -v ".tpl" | awk -F/ '{print "/"$2"/"$3 }' | sort -u | wc -l`
 
-[[ ${LSCMDIR} > ${CLOCMDIR} ]] && updatedb
+#[[ ${LSCMDIR} > ${CLOCMDIR} ]] && updatedb
 
 if [[ -f ${COREMAIL_HOME}/libexec/udsvr ]] ; then
    CMVER=`${COREMAIL_HOME}/libexec/udsvr -v | head -1 | awk -F "(" '{print $1}' | awk '{print $3}' | sed 's/\.//g'`
@@ -31,7 +31,7 @@ ln_coremail_start(){
    exit
 }
 
-select s in ${LOCMDIR[@]}
+select s in ${LSCMDIR[@]}
 do
     if [[ -z ${s} ]] ; then  
         echo "input error" 
