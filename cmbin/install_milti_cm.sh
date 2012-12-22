@@ -2,37 +2,38 @@
 # Author : danielfeng
 # E-mail : danielfancy@gmail.com
 
-CMDIR=/home/ctools/cmconf
-CMSBIN=/home/coremail/sbin
+CTOOLS=/home/ctools
 MYSQL=${COREMAIL_HOME}/mysql/bin/mysql
 LOCAL_IP=`/sbin/ifconfig -a | awk '/inet/{print $2}' | awk -F: '{print $2}' | grep -v "127.0.0.1" | grep -v '^$' | sort`
-CMIP=`grep -E "\[|IP" ${CMDIR}/hosts.cf | xargs -n2 | awk '{print $2" "$1}' | sed 's/IP=//;s/\[//;s/\]//' | awk '{print $1}'| sed "s@${LOCAL_IP}@127.0.0.1@g" | sort -r`
-CMHOSTS=`grep -E "\[|IP" ${CMDIR}/hosts.cf | xargs -n2 | awk '{print $2" "$1}' | sed 's/IP=//;s/\[//;s/\]//' | awk '{print $2}'` 
-CMMDIP=`grep -E "IP|MDID" ${CMDIR}/hosts.cf | grep -B 1 "MDID" | xargs -n2 | awk  '{print $1}' | awk -F "=" '{print $2}'`
-CM_IH=`grep -E "\[|IP" ${CMDIR}/hosts.cf | xargs -n2 | awk '{print $2":"$1}' | sed 's/IP=//;s/\[//;s/\]//'`
-CMCONF_LIST=("/home/coremail/conf" "/home/coremail/var/mainconfig")
-CMDATACF="/home/coremail/conf/datasources.cf"
+CMIP=`grep -E "\[|IP" ${CTOOLS}/cmconf/hosts.cf | xargs -n2 | awk '{print $2" "$1}' | sed 's/IP=//;s/\[//;s/\]//' | awk '{print $1}'| sed "s@${LOCAL_IP}@127.0.0.1@g" | sort -r`
+CMHOSTS=`grep -E "\[|IP" ${CTOOLS}/cmconf/hosts.cf | xargs -n2 | awk '{print $2" "$1}' | sed 's/IP=//;s/\[//;s/\]//' | awk '{print $2}'` 
+CMMDIP=`grep -E "IP|MDID" ${CTOOLS}/cmconf/hosts.cf | grep -B 1 "MDID" | xargs -n2 | awk  '{print $1}' | awk -F "=" '{print $2}'`
+CM_IH=`grep -E "\[|IP" ${CTOOLS}/cmconf/hosts.cf | xargs -n2 | awk '{print $2":"$1}' | sed 's/IP=//;s/\[//;s/\]//'`
+CMCONF_LIST=("${COREMAIL_HOME}/conf" "${COREMAIL_HOME}/var/mainconfig")
+CMDATACF="${COREMAIL_HOME}/conf/datasources.cf"
 HOSTNAME=$(grep cm_logs_db ${CMDATACF} -5 | grep Server |awk -F\" '{print $2}')
 CMPROC=`ps aux | grep coremail | grep "/home/coremail/bin/coremail" | grep -v grep`
-NOMDIP=`grep -E "\[|IP" ${CMDIR}/hosts.cf | xargs -n2 | awk '{print $2" "$1}' | sed 's/IP=//;s/\[//;s/\]//' | awk '{print $1}' | grep -v "${CMMDIP}"`
-NOLOCALIP=`grep -E "\[|IP" ${CMDIR}/hosts.cf | xargs -n2 | awk '{print $2" "$1}' | sed 's/IP=//;s/\[//;s/\]//' | awk '{print $1}' | grep -v "${LOCAL_IP}"`
-CM_IH=`grep -E "\[|IP" ${CMDIR}/hosts.cf | xargs -n2 | awk '{print $2":"$1}' | sed 's/IP=//;s/\[//;s/\]//' | sed "s@${LOCAL_IP}@127.0.0.1@g" | sort -r`
+REMOTE_CTRL="ssh -i ${CTOOLS}/cmconf/.coremailrsa -t root@"
+RSAPUB=`awk '{print $2}' ${CTOOLS}/cmconf/.coremail.pub`
+NOMDIP=`grep -E "\[|IP" ${CTOOLS}/cmconf/hosts.cf | xargs -n2 | awk '{print $2" "$1}' | sed 's/IP=//;s/\[//;s/\]//' | awk '{print $1}' | grep -v "${CMMDIP}"`
+NOLOCALIP=`grep -E "\[|IP" ${CTOOLS}/cmconf/hosts.cf | xargs -n2 | awk '{print $2" "$1}' | sed 's/IP=//;s/\[//;s/\]//' | awk '{print $1}' | grep -v "${LOCAL_IP}"`
+CM_IH=`grep -E "\[|IP" ${CTOOLS}/cmconf/hosts.cf | xargs -n2 | awk '{print $2":"$1}' | sed 's/IP=//;s/\[//;s/\]//' | sed "s@${LOCAL_IP}@127.0.0.1@g" | sort -r`
 
-[[ ! -f ${CMDIR}/hosts.cf ]] && exit
-[[ ! -f ${CMDIR}/iplimit.cf ]] && exit
-[[ ! -f ${CMDIR}/.coremail.pub ]] && exit
-[[ ! -f ${CMDIR}/.coremailrsa ]] && exit
+[[ ! -f ${CTOOLS}/cmconf/hosts.cf ]] && exit
+[[ ! -f ${CTOOLS}/cmconf/iplimit.cf ]] && exit
+[[ ! -f ${CTOOLS}/cmconf/.coremail.pub ]] && exit
+[[ ! -f ${CTOOLS}/cmconf/.coremailrsa ]] && exit
 
 for i in ${CMIP[@]} ; do
     echo "Input ${i} root password"
-    ssh-copy-id -i ${CMDIR}/.coremail.pub root@${i} &>/dev/null
+    ssh-copy-id -i ${CTOOLS}/cmconf/.coremail.pub root@${i} &>/dev/null
 done
 
 change_cmconf(){
 	sed -i 's@${HOSTNAME}@${CMMDIP}@g' ${CMDATACF}
 	for c in ${CMCONF_LIST[@]}; do
-		\cp ${CMDIR}/hosts.cf ${c}
-		\cp ${CMDIR}/iplimit.cf ${c}
+		\cp ${CTOOLS}/cmconf/hosts.cf ${c}
+		\cp ${CTOOLS}/cmconf/iplimit.cf ${c}
 	done
 	chown -R coremail:coremail ${COREMAIL_HOME}
 }
@@ -61,7 +62,7 @@ ${COREMAIL_HOME}/sbin/cmctrl.sh stop
 
 remote_scp(){
 	for t in ${NOLOCALIP[@]} ; do
-		scp -i ${CMDIR}/.coremailrsa -r ${COREMAIL_HOME} root@${t}:/home/
+		scp -i ${CTOOLS}/cmconf/.coremailrsa -r ${COREMAIL_HOME} root@${t}:/home/
 	done
 }
 remote_scp
@@ -70,30 +71,26 @@ remote_change(){
 	for h in ${CM_IH[@]}; do
 		OLDHOSTID=`grep "Hostid=" ${COREMAIL_HOME}/conf/coremail.cf `
 		NEWHOSTID="Hostid=\"${h##*:}\""
-		ssh -i ${CMDIR}/.coremailrsa -t root@${h%%:*} "sed -i 's@${OLDHOSTID}@${NEWHOSTID}@g' ${COREMAIL_HOME}/conf/coremail.cf" &>/dev/null	
+		${REMOTE_CTRL}${h%%:*} "sed -i 's@${OLDHOSTID}@${NEWHOSTID}@g' ${COREMAIL_HOME}/conf/coremail.cf" &>/dev/null	
 	done
 
 	for im in ${NOMDIP[@]}; do
 		IMAS=`grep "IamMainAdminSvr=" ${COREMAIL_HOME}/conf/coremail.cf`
     	NIMAS="IamMainAdminSvr=\"0\""
-		ssh -i ${CMDIR}/.coremailrsa -t root@${im} "sed -i 's@${IMAS}@${NIMAS}@g' ${COREMAIL_HOME}/conf/coremail.cf" &>/dev/null
+		${REMOTE_CTRL}${im} "sed -i 's@${IMAS}@${NIMAS}@g' ${COREMAIL_HOME}/conf/coremail.cf" &>/dev/null
 	done
 	
 	for ci in ${CMIP[@]}; do
 		MASHIP=`grep "MainAdminSvrHost=" ${COREMAIL_HOME}/conf/coremail.cf`
     	NMASHIP="MainAdminSvrHost\=\"${CMMDIP}\""
-		ssh -i ${CMDIR}/.coremailrsa -t root@${ci} "sed -i 's@${MASHIP}@${NMASHIP}@g' ${COREMAIL_HOME}/conf/coremail.cf" &>/dev/null
-		ssh -i ${CMDIR}/.coremailrsa -t root@${ci} "sed -i 's@127.0.0.1@${CMMDIP}@g' ${COREMAIL_HOME}/bin/mysql_cm" &>/dev/null
-		ssh -i ${CMDIR}/.coremailrsa -t root@${ci} "chown -R coremail:coremail ${COREMAIL_HOME}" &>/dev/null
+		${REMOTE_CTRL}${ci} "sed -i 's@${MASHIP}@${NMASHIP}@g' ${COREMAIL_HOME}/conf/coremail.cf" &>/dev/null
+		${REMOTE_CTRL}${ci} "sed -i 's@127.0.0.1@${CMMDIP}@g' ${COREMAIL_HOME}/bin/mysql_cm" &>/dev/null
+		${REMOTE_CTRL}${ci} "chown -R coremail:coremail ${COREMAIL_HOME}" &>/dev/null
 		echo "This is ${ci} Mail Server"
-		ssh -i ${CMDIR}/.coremailrsa -t root@${ci} "${COREMAIL_HOME}/sbin/cmctrl.sh start"
-        OLDKEYS="3NzaC1yc2EAAAABIwAAAQEAvBpCSChvbSl2BkYWZ"
-        ssh -i ${CMDIR}/.coremailrsa -t root@${ci} "sed -i '/${OLDKEYS}/d' ~/.ssh/authorized_keys"  &>/dev/null
+		${REMOTE_CTRL}${ci} "sh ${CTOOLS}/cmbin/boot_coremail.sh" &>/dev/null
+		${REMOTE_CTRL}${ci} "sh ${CTOOLS}/cmbin/add_cmhosts.sh" &>/dev/null
+		${REMOTE_CTRL}${ci} "${COREMAIL_HOME}/sbin/cmctrl.sh start"
+        ${REMOTE_CTRL}${ci} "sed -i '/${RSAPUB:1:50}/d' ~/.ssh/authorized_keys"  &>/dev/null
 	done
 }
 remote_change
-
-
-
-
-    
