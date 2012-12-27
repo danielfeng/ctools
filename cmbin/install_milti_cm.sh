@@ -63,6 +63,7 @@ ${COREMAIL_HOME}/sbin/cmctrl.sh stop
 remote_scp(){
 	for t in ${NOLOCALIP[@]} ; do
 		scp -i ${CTOOLS}/cmconf/.coremailrsa -r ${COREMAIL_HOME} root@${t}:/home/
+		scp -i ${CTOOLS}/cmconf/.coremailrsa -r ${CTOOLS} root@${t}:/home/
 	done
 }
 remote_scp
