@@ -6,7 +6,8 @@ CTOOLS=/home/ctools
 ETC_NETWORK=/etc/sysconfig/network
 OLD_HOSTNAME=`grep "^HOSTNAME=" ${ETC_NETWORK}`
 LOCAL_IP=`/sbin/ifconfig -a | awk '/inet/{print $2}' | awk -F: '{print $2}' | egrep -v "127.0.0.1|^$"`
-CM_HOSTNAME=`grep -B1 "${LOCAL_IP}" ${CTOOLS}/cmconf/hosts.cf | xargs -n2 | sed 's/IP=//;s/\[//;s/\]//' | awk '{print $1}'`
+CM_HOSTNAME=`grep -B1 "${LOCAL_IP}" ${COREMAIL_HOME}/conf/hosts.cf | xargs -n2 | sed 's/IP=//;s/\[//;s/\]//' | awk '{print $1}'`
+#CM_HOSTNAME=`grep -B1 "${LOCAL_IP}" ${CTOOLS}/cmconf/hosts.cf | xargs -n2 | sed 's/IP=//;s/\[//;s/\]//' | awk '{print $1}'`
 
 [[ "${OLD_HOSTNAME}" == "HOSTNAME=mailsvr" ]] && exit
 [[ "${OLD_HOSTNAME}" == "HOSTNAME=${CM_HOSTNAME}" ]]  && exit
