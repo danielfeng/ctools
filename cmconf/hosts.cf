@@ -1,5 +1,5 @@
 [MailWebA]
-IP="192.168.0.22"
+IP="192.168.0.122"
 ProgramsList="RmiServer,adminsvr,wmsvr,session,pop3svr,scequerysvr,mtasvr,deliveragent,imapsvr,timedsend,convertlog,liveupdate,sysmonitor"
 #ProgramsList="RmiServer,adminsvr,wmsvr,session,pop3svr,scequerysvr,mtasvr,deliveragent,imapsvr,timedsend,convertlog,liveupdate,sysmonitor,antivirus,freshclam"
 # WebServerName=""
@@ -18,7 +18,7 @@ SmtpCheckResource="0"
 AVID="1"
 
 [MailWebB]
-IP="192.168.0.21"
+IP="192.168.0.121"
 ProgramsList="adminsvr,wmsvr,session,pop3svr,scequerysvr,mtasvr,deliveragent,imapsvr,convertlog,liveupdate,sysmonitor"
 # WebServerName=""
 WebLoginParameters = "webprefix=@login"
@@ -34,7 +34,7 @@ Pop3CheckResource="0"
 SmtpCheckResource="0"
 
 [MailDBA]
-IP="192.168.0.20"
+IP="192.168.0.120"
 ProgramsList="mssvr,udsvr,mdsvr,adminsvr,convertlog,udext,sysmonitor,searchsvr"
 # WebServerName=""
 # WebServerID="1"
@@ -55,6 +55,3 @@ SearchDataDir="/home/coremail/var/search/data"
 SearchDiskRate="10"
 BackupDir="/home/coremail/var/backup"
 TrsMSWeight="10"
-
-
-
