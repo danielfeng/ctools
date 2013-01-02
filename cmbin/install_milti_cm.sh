@@ -90,6 +90,7 @@ remote_change(){
 		echo "This is ${ci} Mail Server"
 		${REMOTE_CTRL}${ci} "sh ${CTOOLS}/cmbin/boot_coremail.sh" &>/dev/null
 		${REMOTE_CTRL}${ci} "sh ${CTOOLS}/sbin/init_hosts.sh" &>/dev/null
+		${REMOTE_CTRL}${ci} "sh ${CTOOLS}/sbin/init_hostname.sh" &>/dev/null
 		${REMOTE_CTRL}${ci} "sh ${CTOOLS}/cmbin/add_cmhosts.sh" &>/dev/null
 		${REMOTE_CTRL}${ci} "${COREMAIL_HOME}/sbin/cmctrl.sh start"
         ${REMOTE_CTRL}${ci} "sed -i '/${RSAPUB:1:50}/d' ~/.ssh/authorized_keys"  &>/dev/null
