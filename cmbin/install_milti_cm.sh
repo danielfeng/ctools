@@ -88,11 +88,11 @@ remote_change(){
 		${REMOTE_CTRL}${ci} "sed -i 's@127.0.0.1@${CMMDIP}@g' ${COREMAIL_HOME}/bin/mysql_cm" &>/dev/null
 		${REMOTE_CTRL}${ci} "chown -R coremail:coremail ${COREMAIL_HOME}" &>/dev/null
 		echo "This is ${ci} Mail Server"
+		${REMOTE_CTRL}${ci} "${COREMAIL_HOME}/sbin/cmctrl.sh start"
 		${REMOTE_CTRL}${ci} "sh ${CTOOLS}/cmbin/boot_coremail.sh" &>/dev/null
 		${REMOTE_CTRL}${ci} "sh ${CTOOLS}/sbin/init_hosts.sh" &>/dev/null
 		${REMOTE_CTRL}${ci} "sh ${CTOOLS}/sbin/init_hostname.sh" &>/dev/null
 		${REMOTE_CTRL}${ci} "sh ${CTOOLS}/cmbin/add_cmhosts.sh" &>/dev/null
-		${REMOTE_CTRL}${ci} "${COREMAIL_HOME}/sbin/cmctrl.sh start"
         ${REMOTE_CTRL}${ci} "sed -i '/${RSAPUB:1:50}/d' ~/.ssh/authorized_keys"  &>/dev/null
 	done
 }
