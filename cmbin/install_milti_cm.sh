@@ -30,7 +30,7 @@ for i in ${CMIP[@]} ; do
 done
 
 change_cmconf(){
-	sed -i 's@${HOSTNAME}@${CMMDIP}@g' ${CMDATACF}
+	sed -i "s@${HOSTNAME}@${CMMDIP}@g" ${CMDATACF}
 	for c in ${CMCONF_LIST[@]}; do
 		\cp ${CTOOLS}/cmconf/hosts.cf ${c}
 		\cp ${CTOOLS}/cmconf/iplimit.cf ${c}
