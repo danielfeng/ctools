@@ -26,7 +26,7 @@ createsa()
     $MYSQL cmxt -e "$SA" -u${USERNAME} -p$PASSWORD -P${PORT} -h${HOSTNAME}
     ATTR=`head -1 /tmp/a.txt`
     $CSA $ATTR $ADMIN $SAPASSWORD
-    RMTMP=`\rm /tmp/a.txt`
+    \rm /tmp/a.txt
 }
 
 delsa()
@@ -34,7 +34,7 @@ delsa()
     $MYSQL cmxt -e "$SA" -u${USERNAME} -p$PASSWORD -P${PORT} -h${HOSTNAME}
     DN=`head -1 /tmp/a.txt | awk '{print $3}'`
     $USERUTIL --delete-user $ADMIN@$DN
-    RMTMP=`\rm /tmp/a.txt`
+    \rm /tmp/a.txt
 }
 
 case $1 in
