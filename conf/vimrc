@@ -21,6 +21,9 @@ set nocompatible
 "显示行号
 set number
 
+"粘贴的时候关闭自动缩进
+set paste 
+
 "行号栏的宽度
 set numberwidth=4
 
