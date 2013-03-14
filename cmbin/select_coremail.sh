@@ -32,9 +32,11 @@ ln_coremail_start(){
    exit
 }
 
+echo "目前运行版本是:${CM_VER}"
+echo "==============================================================================================================="
+
 select s in ${LSCMDIR[@]}
 do
-    echo ${CM_VER}
     if [[ -z ${s} ]] ; then  
         echo "input error" 
     elif [[ -L /home/coremail ]] ; then
