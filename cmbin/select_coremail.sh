@@ -12,6 +12,7 @@ TIME=`date +%H%M`
 CMPROC=`ps aux | grep coremail | grep "/home/coremail/bin/coremail" | grep -v grep`
 LSCMDIR=`ls -d1 /home/coremail*/conf/coremail.cf | grep -v "coremail/conf" | awk -F "/conf/" '{print $1}'`
 #CLOCMDIR=`locate coremail.cf | grep "^/home/coremail" | grep -v ".tpl" | awk -F/ '{print "/"$2"/"$3 }' | sort -u | wc -l`
+CM_VER=`/home/coremail/bin/sautil chkver --withC | head -1`
 
 #[[ ${LSCMDIR} > ${CLOCMDIR} ]] && updatedb
 
@@ -33,6 +34,7 @@ ln_coremail_start(){
 
 select s in ${LSCMDIR[@]}
 do
+    echo ${CM_VER}
     if [[ -z ${s} ]] ; then  
         echo "input error" 
     elif [[ -L /home/coremail ]] ; then
