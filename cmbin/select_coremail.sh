@@ -32,7 +32,7 @@ ln_coremail_start(){
    exit
 }
 
-echo "目前运行版本是:${CM_VER}"
+echo "The current version of the run is是:${CM_VER}"
 echo "==============================================================================================================="
 
 select s in ${LSCMDIR[@]}
