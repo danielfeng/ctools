@@ -32,8 +32,13 @@ ln_coremail_start(){
    exit
 }
 
-echo "The current version of the run is: ${CM_VER}"
-echo "==============================================================================================================="
+if [[ -f ${COREMAIL_HOME}/bin/sautil ]] && [[ ! -z ${CMPROC} ]]; then
+    echo "The current version of the run is: ${CM_VER}"
+    echo "===================================================================================================================="
+else
+    echo "Not Coremail Runing:"
+    echo "===================================================================================================================="
+fi
 
 select s in ${LSCMDIR[@]}
 do
