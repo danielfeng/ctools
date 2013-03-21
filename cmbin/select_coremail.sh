@@ -12,12 +12,15 @@ TIME=`date +%H%M`
 CMPROC=`ps aux | grep coremail | grep "/home/coremail/bin/coremail" | grep -v grep`
 LSCMDIR=`ls -d1 /home/coremail*/conf/coremail.cf | grep -v "coremail/conf" | awk -F "/conf/" '{print $1}'`
 #CLOCMDIR=`locate coremail.cf | grep "^/home/coremail" | grep -v ".tpl" | awk -F/ '{print "/"$2"/"$3 }' | sort -u | wc -l`
-CM_VER=`/home/coremail/bin/sautil chkver --withC | head -1`
 
 #[[ ${LSCMDIR} > ${CLOCMDIR} ]] && updatedb
 
 if [[ -f ${COREMAIL_HOME}/libexec/udsvr ]] ; then
    CMVER=`${COREMAIL_HOME}/libexec/udsvr -v | head -1 | awk -F "(" '{print $1}' | awk '{print $3}' | sed 's/\.//g'`
+fi
+
+if [[ -f ${COREMAIL_HOME}/bin/sautil ]] ; then
+   CM_VER=`/home/coremail/bin/sautil chkver --withC | head -1`
 fi
 
 whether_cm_proc(){
@@ -32,11 +35,11 @@ ln_coremail_start(){
    exit
 }
 
-if [[ -f ${COREMAIL_HOME}/bin/sautil ]] && [[ ! -z ${CMPROC} ]]; then
-    echo "The current version of the run is: ${CM_VER}"
+if [[ -z ${CMPROC} ]]; then
+    echo "Not Coremail Runing:"
     echo "===================================================================================================================="
 else
-    echo "Not Coremail Runing:"
+    echo "The current version of the run is: ${CM_VER}"
     echo "===================================================================================================================="
 fi
 
@@ -55,3 +58,4 @@ do
         ln_coremail_start
     fi  
 done
+
