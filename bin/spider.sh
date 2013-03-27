@@ -7,7 +7,7 @@ IMG_DIR="img"
 
 echo "输入需要下载图片的网址"
 read url 
-curl ${url} | sed -n 's/.*src="\([^"]*[\.jpg|\.jpeg|\.gif|\.png]\)".*/\1/gp' > ${DEST}
+curl -s ${url} | sed -n 's/.*src="\([^"]*[\.jpg|\.jpeg|\.png]\)".*/\1/gp' > ${DEST}
 
 [ -z ${DEST} ] && echo "该网址没有所需要图片" && exit
 
@@ -18,7 +18,8 @@ fi
 cd ${IMG_DIR}
 while read line
 do
-    curl -O ${line}
+    echo "Downloading: ${line}"
+    curl -# -O ${line}  
 done<../${DEST}
 rm ../${DEST}
 
