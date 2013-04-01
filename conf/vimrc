@@ -118,3 +118,8 @@ set whichwrap=b,s,<,>,[,]
  
 "js语法高亮脚本的设置
 let g:javascript_enable_domhtmlcss=1
+
+" 插入匹配括号
+inoremap ( ()<LEFT>
+inoremap [ []<LEFT>
+inoremap { {}<LEFT>}}]]))
