@@ -1,5 +1,6 @@
 这是个初始化系统的脚本,Centos和Redhat通用，复制到/home/目录下执行init.sh
 
+## TODO
 ### 多机安装脚本
 1. 备份初始化完成的coremail
 2. 每台被分发主机先执行ctools
