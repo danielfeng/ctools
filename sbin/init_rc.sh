@@ -2,7 +2,7 @@
 # Author : danielfeng
 # E-Mail : danielfancy@gmail.com
 
-service_stop_list="sendmail iptables cups nfslock bluetooth hidd gpm ip6tables pcscd xfs autofs avahi-daemon auditd rpcidmapd rpcgssd isdn httpd"
+service_stop_list="postfix sendmail iptables cups nfslock bluetooth hidd gpm ip6tables pcscd xfs autofs avahi-daemon auditd rpcidmapd rpcgssd isdn httpd"
 
 for list in ${service_stop_list}; do
     [[ ! -f /etc/init.d/${list} ]] && continue
