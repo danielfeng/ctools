@@ -9,7 +9,7 @@ DATE=`date +"%Y-%m-%d"`
 
 [ -d $LOGS ] || mkdir -p $LOGS
 cd $PUBLIC
-svn cleanup public && svn co $URL > $LOGS/svnsync.$DATE.log &
+/usr/bin/svn cleanup public && /usr/bin/svn co $URL > $LOGS/svnsync.$DATE.log &
 
 for i in `find ${LOGS} -type f -mtime +6 -name 'svnsync.*.log'` ; do
     if [ ! -z $i ]; then
