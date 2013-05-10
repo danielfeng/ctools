@@ -39,7 +39,7 @@ change_logos()
 restore_logos()
 {
    for list in ${change_logos_list[@]} ; do
-    [ -f ${list##*:}{,.bak`date +%F`} ] && mv ${list##*:}{,.bak`date +%F`} ${list##*:} 
+    [ -f ${list##*:}.bak`date +%F` ] && mv ${list##*:}.bak`date +%F` ${list##*:} 
     [ -f ${list##*:} ] && chown coremail:coremail ${list##*:}
    done
    restart_clean_tomcat
