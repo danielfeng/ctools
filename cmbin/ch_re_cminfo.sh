@@ -2,17 +2,16 @@
 # Author : danielfeng
 # E-mail : danielfancy@gmail.com
 
-#以下三个变量需要随需求变化而变化
 NEW_URL="www.daniel2.cn"
 NEW_TITLE="main_title = daniel邮件系统"
-NEW_COPYRIGHT="copyright = daniel. &copy; Copyright 2000 - 2013 dn."
+NEW_COPYRIGHT="copyright\ =\ daniel.\ \&copy;\ Copyright 2000\ -\ 2013\ dn."
 
 
 JSP_DIR=${COREMAIL_HOME}/web/webapp/common/index_cmxt30.jsp
 CONF_DIR=${COREMAIL_HOME}/web/webapp/WEB-INF/lang/common/main_zh_CN.properties
 OLD_URL="www.coremail.cn"
 OLD_TITLE="main_title = Coremail邮件系统"
-OLD_COPYRIGHT="copyright = Coremail. &copy; Copyright 2000 - 2012 Mailtech."
+OLD_COPYRIGHT="copyright\ =\ Coremail.\ \&copy;\ Copyright\ 2000\ -\ 2013\ Mailtech."
 
 backup_file()
 {
@@ -23,9 +22,9 @@ backup_file()
 change_cminfo()
 {
     backup_file
-    sed -i 's@${OLD_TITLE}@${NEW_TITLE}@g' ${CONF_DIR}
-    sed -i 's@${OLD_COPYRIGHT}@${NEW_COPYRIGHT}@g' ${CONF_DIR}
-    sed -i 's@${OLD_URL}@${NEW_URL}@g'  ${JSP_DIR}
+    sed -i "s#${OLD_TITLE}#${NEW_TITLE}#g" ${CONF_DIR}
+    sed -i "s#${OLD_COPYRIGHT}#${NEW_COPYRIGHT}#g" ${CONF_DIR}
+    sed -i "s#${OLD_URL}#${NEW_URL}#g"  ${JSP_DIR}
 }
 
 restore_cminfo()
