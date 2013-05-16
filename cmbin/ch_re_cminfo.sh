@@ -29,6 +29,10 @@ change_cminfo()
 
 restore_cminfo()
 {
+    if [[ ! -f ${CONF_DIR}.bak`date +%F` ]] && [[ ! -f ${JSP_DIR}.bak`date +%F` ]]; then
+        echo "nothing backup file..."
+        exit
+    fi
     [ -f ${CONF_DIR}.bak`date +%F` ] && cp ${CONF_DIR}.bak`date +%F` ${CONF_DIR}
     [ -f ${JSP_DIR}.bak`date +%F` ] && cp ${JSP_DIR}.bak`date +%F` ${JSP_DIR}
 }
