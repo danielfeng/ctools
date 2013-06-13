@@ -37,6 +37,20 @@ chk_off() {
     done
 }
 
+srv_stop() {
+    unset i
+    for i in $@ ; do
+        service $i stop
+    done
+}
+
+srv_start() {
+    unset i
+    for i in $@ ; do
+        service $i start
+    done
+}
+
 srv_restart() {
     unset i
     for i in $@ ; do
