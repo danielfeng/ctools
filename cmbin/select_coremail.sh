@@ -13,6 +13,7 @@ CMPROC=`ps aux | grep coremail | grep "/home/coremail/bin/coremail" | grep -v gr
 LSCMDIR=`echo /home/coremail*/conf/coremail.cf | awk '{for(i=1;i<=NF;i++)print $i}' | awk -F "/conf/" '{print $1}'`
 #LSCMDIR=`ls -d1 /home/coremail*/conf/coremail.cf | grep -v "coremail/conf" | awk -F "/conf/" '{print $1}'`
 #CLOCMDIR=`locate coremail.cf | grep "^/home/coremail" | grep -v ".tpl" | awk -F/ '{print "/"$2"/"$3 }' | sort -u | wc -l`
+CM_LINK_DIR=`ls -l /home/coremail | awk '{print $8" "$9" "$NF}'`
 
 #[[ ${LSCMDIR} > ${CLOCMDIR} ]] && updatedb
 
@@ -38,10 +39,11 @@ ln_coremail_start(){
 
 if [[ -z ${CMPROC} ]]; then
     echo "Not Coremail Runing:"
-    echo "===================================================================================================================="
+    echo "========================================================================================================================="
 else
     echo "The current version of the run is: ${CM_VER}"
-    echo "===================================================================================================================="
+    echo "${CM_LINK_DIR}"
+    echo "========================================================================================================================="
 fi
 
 select s in ${LSCMDIR[@]}
