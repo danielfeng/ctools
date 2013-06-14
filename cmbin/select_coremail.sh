@@ -3,14 +3,15 @@
 # E-Mail : danielfancy@gmail.com
 
 #CMDIR=`find /home/ -name "coremail.cf" | grep "/home/coremail" | awk -F "/conf" '{print $1}' | grep -v "/coremail$" | grep -v "/var"`
-MLOCATEDB=`locate coremail.cf 2>/dev/null`
-[[ -z ${MLOCATEDB} ]] && updatedb
+#MLOCATEDB=`locate coremail.cf 2>/dev/null`
+#[[ -z ${MLOCATEDB} ]] && updatedb
 
 DATE=`date +%Y%m%d`
 TIME=`date +%H%M`
 #LOCMDIR=`locate coremail.cf | grep "^/home/coremail" | grep -v ".tpl" | awk -F/ '{print "/"$2"/"$3 }' | sort -u`
 CMPROC=`ps aux | grep coremail | grep "/home/coremail/bin/coremail" | grep -v grep`
-LSCMDIR=`ls -d1 /home/coremail*/conf/coremail.cf | grep -v "coremail/conf" | awk -F "/conf/" '{print $1}'`
+LSCMDIR=`echo /home/coremail*/conf/coremail.cf | awk '{for(i=1;i<=NF;i++)print $i}' | awk -F "/conf/" '{print $1}'`
+#LSCMDIR=`ls -d1 /home/coremail*/conf/coremail.cf | grep -v "coremail/conf" | awk -F "/conf/" '{print $1}'`
 #CLOCMDIR=`locate coremail.cf | grep "^/home/coremail" | grep -v ".tpl" | awk -F/ '{print "/"$2"/"$3 }' | sort -u | wc -l`
 
 #[[ ${LSCMDIR} > ${CLOCMDIR} ]] && updatedb
