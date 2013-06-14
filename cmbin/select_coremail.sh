@@ -41,8 +41,8 @@ if [[ -z ${CMPROC} ]]; then
     echo "Not Coremail Runing:"
     echo "========================================================================================================================="
 else
-    echo "The current version of the run is: ${CM_VER}"
-    echo "${CM_LINK_DIR}"
+    echo "<<<${CM_LINK_DIR}>>>"
+    echo "The current version of the run is: \033[34m${CM_VER}\033[34m"
     echo "========================================================================================================================="
 fi
 
