@@ -8,12 +8,13 @@
 
 DATE=`date +%Y%m%d`
 TIME=`date +%H%M`
-#LOCMDIR=`locate coremail.cf | grep "^/home/coremail" | grep -v ".tpl" | awk -F/ '{print "/"$2"/"$3 }' | sort -u`
 CMPROC=`ps aux | grep coremail | grep "/home/coremail/bin/coremail" | grep -v grep`
-LSCMDIR=`echo /home/coremail*/conf/coremail.cf | awk '{for(i=1;i<=NF;i++)print $i}' | awk -F "/conf/" '{print $1}'`
+LSCMDIR=`echo /home/coremail*/conf/coremail.cf | awk '{for(i=1;i<=NF;i++)print $i}' |  grep -v "coremail/conf" | awk -F "/conf/" '{print $1}'`
+CM_LINK_DIR=`ls -l /home/coremail | awk '{print $8" "$9" "$NF}'`
+
 #LSCMDIR=`ls -d1 /home/coremail*/conf/coremail.cf | grep -v "coremail/conf" | awk -F "/conf/" '{print $1}'`
 #CLOCMDIR=`locate coremail.cf | grep "^/home/coremail" | grep -v ".tpl" | awk -F/ '{print "/"$2"/"$3 }' | sort -u | wc -l`
-CM_LINK_DIR=`ls -l /home/coremail | awk '{print $8" "$9" "$NF}'`
+#LOCMDIR=`locate coremail.cf | grep "^/home/coremail" | grep -v ".tpl" | awk -F/ '{print "/"$2"/"$3 }' | sort -u`
 
 #[[ ${LSCMDIR} > ${CLOCMDIR} ]] && updatedb
 
@@ -41,8 +42,9 @@ if [[ -z ${CMPROC} ]]; then
     echo "Not Coremail Runing:"
     echo "========================================================================================================================="
 else
-    echo "<<<${CM_LINK_DIR}>>>"
-    echo "The current version of the run is: \033[34m${CM_VER}\033[34m"
+    echo -e "<==   \e[1;33m${CM_LINK_DIR}\033[0m   ==>"
+    echo -e "\033[34;1m${CM_VER}\033[0m";
+    #echo -e "The current version of the run is: \033[34;1m${CM_VER}\033[0m";
     echo "========================================================================================================================="
 fi
 
@@ -61,4 +63,3 @@ do
         ln_coremail_start
     fi  
 done
-
