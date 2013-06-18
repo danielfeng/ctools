@@ -4,9 +4,9 @@ endif
 
 "设置语法高亮的配色，在GUI界面里使用我自定义的yytextmate.vim
 if has("gui_running")
-colorscheme yytextmate
+  colorscheme yytextmate
 else
-colorscheme slate
+  colorscheme slate
 endif
 
 "查找编码的规则（vim7默认都用utf-8，打开包含gbk字符的文件会出现乱码）
@@ -56,8 +56,8 @@ set background=dark
 "set smartindent
 
 "第一行设置tab键为4个空格，第二行设置当行之间交错时使用4个空格
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 
 "行间距，如果默认值太小，代码会非常纠结
 set linespace=4    
