@@ -3,8 +3,8 @@
 # E-mail : danielfancy@gmail.com
 
 
-#FINDGLOBAL=`find /home/coremail* -name "global.cf"`
-FINDGLOBAL=`locate global.cf | grep -v ".tpl"`
+FINDGLOBAL=`find /home/coremail* -name "global.cf"`
+#FINDGLOBAL=`locate global.cf | grep -v ".tpl"`
 NLICENSE="License=\"$1\""
 
 if [[ -z $1 ]] ; then
@@ -15,5 +15,6 @@ fi
 for i in $FINDGLOBAL ; do
     LICENSE=`grep "^License=" $i`
     sed -i "s#${LICENSE}#${NLICENSE}#g" $i
+    echo $i
 done
 
