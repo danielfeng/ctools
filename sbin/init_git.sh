@@ -14,7 +14,7 @@ rpm -q gcc                      ||  yum -y install gcc
 rpm -q autoconf                 ||  yum -y install autoconf
 rpm -q perl-ExtUtils-MakeMaker  ||  yum -y install perl-ExtUtils-MakeMaker
 
-URL=http://www.codemonkey.org.uk/projects/git-snapshots/git/git-2012-12-02.tar.gz
+URL=http://www.codemonkey.org.uk/projects/git-snapshots/git/git-latest.tar.gz
 filename=`basename ${URL}`
 dirname=`echo ${filename} | sed 's/.tar.gz//g'`
 
