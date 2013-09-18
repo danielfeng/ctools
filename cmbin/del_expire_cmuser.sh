@@ -19,9 +19,9 @@ done
 show_expire_user()
 {
   for s in `cat /tmp/tmp.txt` ; do
-    grep $s /tmp/tmp1.txt >>  show_exprire_user.${LOG_DATE}.log
+    grep $s /tmp/tmp1.txt >>  show_expire_user.${LOG_DATE}.log
   done
-  [[ -f show_exprire_user.${LOG_DATE}.log ]] && cat show_exprire_user.${LOG_DATE}.log
+  [[ -f show_exprire_user.${LOG_DATE}.log ]] && cat show_expire_user.${LOG_DATE}.log
 
 }
 
