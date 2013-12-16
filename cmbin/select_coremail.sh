@@ -1,7 +1,8 @@
-#!/usr/bin/env bash
+# !/usr/bin/env bash
 # Author : danielfeng
 # E-Mail : danielfancy@gmail.com
 
+# test sublime git command
 #CMDIR=`find /home/ -name "coremail.cf" | grep "/home/coremail" | awk -F "/conf" '{print $1}' | grep -v "/coremail$" | grep -v "/var"`
 #MLOCATEDB=`locate coremail.cf 2>/dev/null`
 #[[ -z ${MLOCATEDB} ]] && updatedb
