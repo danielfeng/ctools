@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+# !/usr/bin/env bash
 # Author : danielfeng
 # E-Mail : danielfancy@gmail.com
 
