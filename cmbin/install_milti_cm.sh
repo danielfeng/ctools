@@ -3,6 +3,7 @@
 # E-mail : danielfancy@gmail.com
 
 CTOOLS=/home/ctools
+COREMAIL_HOME=/home/coremail
 MYSQL=${COREMAIL_HOME}/mysql/bin/mysql
 LOCAL_IP=`/sbin/ifconfig -a | awk '/inet/{print $2}' | awk -F: '{print $2}' | grep -v "127.0.0.1" | grep -v '^$' | sort`
 CMIP=`grep -E "\[|IP" ${CTOOLS}/cmconf/hosts.cf | xargs -n2 | awk '{print $2" "$1}' | sed 's/IP=//;s/\[//;s/\]//' | awk '{print $1}'| sed "s@${LOCAL_IP}@127.0.0.1@g" | sort -r`
@@ -24,6 +25,8 @@ CM_IH=`grep -E "\[|IP" ${CTOOLS}/cmconf/hosts.cf | xargs -n2 | awk '{print $2":"
 [[ ! -f ${CTOOLS}/cmconf/.coremail.pub ]] && exit
 [[ ! -f ${CTOOLS}/cmconf/.coremailrsa ]] && exit
 
+chmod 600 ${CTOOLS}/cmconf/.coremail*
+
 for i in ${CMIP[@]} ; do
     echo "Input ${i} root password"
     ssh-copy-id -i ${CTOOLS}/cmconf/.coremail.pub root@${i} &>/dev/null
@@ -32,8 +35,8 @@ done
 change_cmconf(){
 	sed -i "s@${HOSTNAME}@${CMMDIP}@g" ${CMDATACF}
 	for c in ${CMCONF_LIST[@]}; do
-		\cp ${CTOOLS}/cmconf/hosts.cf ${c}
-		\cp ${CTOOLS}/cmconf/iplimit.cf ${c}
+		  \cp ${CTOOLS}/cmconf/hosts.cf ${c}
+		  \cp ${CTOOLS}/cmconf/iplimit.cf ${c}
 	done
 	chown -R coremail:coremail ${COREMAIL_HOME}
 }
@@ -44,8 +47,8 @@ grants_mysql(){
 	PORT=$(grep cm_logs_db ${CMDATACF} -5 | grep Port |awk -F\" '{print $2}')
 	GPASSWORD=`mysql -e "show grants\G;" -uroot -p${PASSWORD} -P${PORT} -h${HOSTNAME} | grep PRIVILEGES | awk '{print $14}'`
 	for g in ${CMIP[@]} ; do
-          GRANTS="GRANT ALL PRIVILEGES ON *.* TO 'coremail'@'${g}' IDENTIFIED BY PASSWORD ${GPASSWORD};"
-          $MYSQL -e "$GRANTS" -uroot -p${PASSWORD} -P${PORT} -h${HOSTNAME}
+      GRANTS="GRANT ALL PRIVILEGES ON *.* TO 'coremail'@'${g}' IDENTIFIED BY PASSWORD ${GPASSWORD};"
+      $MYSQL -e "$GRANTS" -uroot -p${PASSWORD} -P${PORT} -h${HOSTNAME}
 	done
 }
 
@@ -62,38 +65,38 @@ ${COREMAIL_HOME}/sbin/cmctrl.sh stop
 
 remote_scp(){
 	for t in ${NOLOCALIP[@]} ; do
-		scp -i ${CTOOLS}/cmconf/.coremailrsa -r ${COREMAIL_HOME} root@${t}:/home/
-		scp -i ${CTOOLS}/cmconf/.coremailrsa -r ${CTOOLS} root@${t}:/home/
+		  scp -i ${CTOOLS}/cmconf/.coremailrsa -r ${COREMAIL_HOME} root@${t}:/home/
+		  scp -i ${CTOOLS}/cmconf/.coremailrsa -r ${CTOOLS} root@${t}:/home/
 	done
 }
 remote_scp
 
 remote_change(){
 	for h in ${CM_IH[@]}; do
-		OLDHOSTID=`grep "Hostid=" ${COREMAIL_HOME}/conf/coremail.cf `
-		NEWHOSTID="Hostid=\"${h##*:}\""
-		${REMOTE_CTRL}${h%%:*} "sed -i 's@${OLDHOSTID}@${NEWHOSTID}@g' ${COREMAIL_HOME}/conf/coremail.cf" &>/dev/null	
+		  OLDHOSTID=`grep "Hostid=" ${COREMAIL_HOME}/conf/coremail.cf `
+		  NEWHOSTID="Hostid=\"${h##*:}\""
+		  ${REMOTE_CTRL}${h%%:*} "sed -i 's@${OLDHOSTID}@${NEWHOSTID}@g' ${COREMAIL_HOME}/conf/coremail.cf" &>/dev/null	
 	done
 
 	for im in ${NOMDIP[@]}; do
-		IMAS=`grep "IamMainAdminSvr=" ${COREMAIL_HOME}/conf/coremail.cf`
+		  IMAS=`grep "IamMainAdminSvr=" ${COREMAIL_HOME}/conf/coremail.cf`
     	NIMAS="IamMainAdminSvr=\"0\""
-		${REMOTE_CTRL}${im} "sed -i 's@${IMAS}@${NIMAS}@g' ${COREMAIL_HOME}/conf/coremail.cf" &>/dev/null
+		  ${REMOTE_CTRL}${im} "sed -i 's@${IMAS}@${NIMAS}@g' ${COREMAIL_HOME}/conf/coremail.cf" &>/dev/null
 	done
 	
 	for ci in ${CMIP[@]}; do
-		MASHIP=`grep "MainAdminSvrHost=" ${COREMAIL_HOME}/conf/coremail.cf`
-    	NMASHIP="MainAdminSvrHost\=\"${CMMDIP}\""
-		${REMOTE_CTRL}${ci} "sed -i 's@${MASHIP}@${NMASHIP}@g' ${COREMAIL_HOME}/conf/coremail.cf" &>/dev/null
-		${REMOTE_CTRL}${ci} "sed -i 's@127.0.0.1@${CMMDIP}@g' ${COREMAIL_HOME}/bin/mysql_cm" &>/dev/null
-		${REMOTE_CTRL}${ci} "chown -R coremail:coremail ${COREMAIL_HOME}" &>/dev/null
-		echo "This is ${ci} Mail Server"
-		${REMOTE_CTRL}${ci} "${COREMAIL_HOME}/sbin/cmctrl.sh start"
-		${REMOTE_CTRL}${ci} "sh ${CTOOLS}/cmbin/boot_coremail.sh" &>/dev/null
-		${REMOTE_CTRL}${ci} "sh ${CTOOLS}/sbin/init_hosts.sh" &>/dev/null
-		${REMOTE_CTRL}${ci} "sh ${CTOOLS}/sbin/init_hostname.sh" &>/dev/null
-		${REMOTE_CTRL}${ci} "sh ${CTOOLS}/cmbin/add_cmhosts.sh" &>/dev/null
-        ${REMOTE_CTRL}${ci} "sed -i '/${RSAPUB:1:50}/d' ~/.ssh/authorized_keys"  &>/dev/null
+  		MASHIP=`grep "MainAdminSvrHost=" ${COREMAIL_HOME}/conf/coremail.cf`
+   	  NMASHIP="MainAdminSvrHost\=\"${CMMDIP}\""
+		  ${REMOTE_CTRL}${ci} "sed -i 's@${MASHIP}@${NMASHIP}@g' ${COREMAIL_HOME}/conf/coremail.cf" &>/dev/null
+		  ${REMOTE_CTRL}${ci} "sed -i 's@127.0.0.1@${CMMDIP}@g' ${COREMAIL_HOME}/bin/mysql_cm" &>/dev/null
+		  ${REMOTE_CTRL}${ci} "chown -R coremail:coremail ${COREMAIL_HOME}" &>/dev/null
+		  echo "This is ${ci} Mail Server"
+		  ${REMOTE_CTRL}${ci} "${COREMAIL_HOME}/sbin/cmctrl.sh start"
+		  ${REMOTE_CTRL}${ci} "sh ${CTOOLS}/cmbin/boot_coremail.sh" &>/dev/null
+		 # ${REMOTE_CTRL}${ci} "sh ${CTOOLS}/sbin/init_hosts.sh" &>/dev/null
+		 # ${REMOTE_CTRL}${ci} "sh ${CTOOLS}/sbin/init_hostname.sh" &>/dev/null
+		 # ${REMOTE_CTRL}${ci} "sh ${CTOOLS}/cmbin/add_cmhosts.sh" &>/dev/null
+      ${REMOTE_CTRL}${ci} "sed -i '/${RSAPUB:1:50}/d' ~/.ssh/authorized_keys"  &>/dev/null
 	done
 }
 remote_change
