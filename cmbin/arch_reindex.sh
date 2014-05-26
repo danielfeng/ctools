@@ -5,8 +5,8 @@
 YEAR=$1
 MONTH=$2
 COREMAIL_HOME="/home/coremail/"
-ARCH_INDEX=`grep "ArchiveIndexRoot" ${COREMAIL_HOME}/conf/hosts.cf | awk -F "\"" '{print $2}'`
-ARCH_DATA=`grep "ArchiveDataRoot" ${COREMAIL_HOME}/conf/hosts.cf | awk -F "\"" '{print $2}'`
+ARCH_INDEX=`grep "ArchiveIndexRoot" ${COREMAIL_HOME}/conf/hosts.cf | awk -F "\"" '{print $2}' | sed 's%(\|)%%g'`
+ARCH_DATA=`grep "ArchiveDataRoot" ${COREMAIL_HOME}/conf/hosts.cf | awk -F "\"" '{print $2}'| sed 's%(\|)%%g'`
 REINDEX_DATE="arch_in${YEAR}${MONTH}"
 RUN_LOG="${REINDEX_DATE}_run.log"
 
@@ -17,7 +17,7 @@ RUN_LOG="${REINDEX_DATE}_run.log"
 backup_index()
 {
 	mkdir -p /backup/index_00_${YEAR}_${MONTH}/
-	find ${ARCH_INDEX}/00/${YEAR} -type f -name "${MONTH}*" | xargs -i mv {} /backup/index_00_${YEAR}_${MONTH}/
+	find "${ARCH_INDEX}/00/${YEAR}" -type f -name "${MONTH}*" | xargs -i mv {} /backup/index_00_${YEAR}_${MONTH}/
 }
 
 # reindex
