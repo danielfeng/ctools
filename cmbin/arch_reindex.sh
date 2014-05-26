@@ -21,7 +21,8 @@ backup_index()
 }
 
 # reindex
-for archfile in `find "${ARCH_DATA}" -name "${REINDEX_DATE}" -type f`
+cd ${ARCH_DATA}
+for archfile in `find . -name "${REINDEX_DATE}" -type f`
 do
 	echo "$(date "+%F (%T)"): process ${archfile}" >> ${RUN_LOG}
 	echo "reindex ${archfile}" | nc 0 6202 >> ${RUN_LOG}
