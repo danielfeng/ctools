@@ -5,8 +5,8 @@
 YEAR=$1
 MONTH=$2
 COREMAIL_HOME="/home/coremail/"
-ARCH_INDEX=`grep "ArchiveIndexRoot" ${COREMAIL_HOME}/conf/hosts.cf | awk -F "\"" '{print $2}' | sed 's%(\|)%%g'`
-ARCH_DATA=`grep "ArchiveDataRoot" ${COREMAIL_HOME}/conf/hosts.cf | awk -F "\"" '{print $2}'| sed 's%(\|)%%g'`
+ARCH_INDEX=`grep "ArchiveIndexRoot" ${COREMAIL_HOME}/conf/hosts.cf | awk -F "\"" '{print $2}' | sed 's%$(COREMAIL_HOME)%/home/coremail%g'`
+ARCH_DATA=`grep "ArchiveDataRoot" ${COREMAIL_HOME}/conf/hosts.cf | awk -F "\"" '{print $2}'| sed 's%$(COREMAIL_HOME)%/home/coremail%g'`
 REINDEX_DATE="arch_in${YEAR}${MONTH}"
 RUN_LOG="${REINDEX_DATE}_run.log"
 
@@ -22,18 +22,20 @@ backup_index()
 
 # reindex
 echo ${ARCH_DATA}
-for archfile in `find . -name "${REINDEX_DATE}" -type f`
-do
-	echo "$(date "+%F (%T)"): process ${archfile}" >> ${RUN_LOG}
-	echo "reindex ${archfile}" | nc 0 6202 >> ${RUN_LOG}
-done
-
+reindex()
+{
+  for archfile in `find ${ARCH_DATA} -name "${REINDEX_DATE}*" -type f`
+  do
+	  echo "$(date "+%F (%T)"): process ${archfile}" >> ${RUN_LOG}
+	  echo "reindex ${archfile}" | nc 0 6202 >> ${RUN_LOG}
+  done
+}
 
 case $3 in
 backup | -b )
-	backup_index;;
+	backup_index
+	reindex;;
 *)
-	;;
+	reindex;;
 esac
-
 
