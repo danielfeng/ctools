@@ -17,7 +17,7 @@ RUN_LOG="${REINDEX_DATE}_run.log"
 backup_index()
 {
 	mkdir -p /backup/index_00_${YEAR}_${MONTH}/
-	find "${ARCH_INDEX}/00/${YEAR}" -type f -name "${MONTH}*" | xargs -i mv {} /backup/index_00_${YEAR}_${MONTH}/
+	find ${ARCH_INDEX}/00/${YEAR} -type f -name "${MONTH}*" | xargs -i mv {} /backup/index_00_${YEAR}_${MONTH}/
 }
 
 # reindex
