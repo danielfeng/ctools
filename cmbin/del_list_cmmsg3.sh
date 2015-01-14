@@ -27,7 +27,7 @@ del_unread_msg()
   for i in `cat /tmp/unread.log` ; do
   	 ${USERUTIL} --delete-msg ${i%%:*} ${i##*:}
   done;
-  rm /tmp/unread.log && rm /tmp/alllog
+#  rm /tmp/unread.log && rm /tmp/alllog
 }  
 
 
@@ -39,4 +39,3 @@ case $1 in
 *)
     echo "Usage: $0 -da del all msg | -du del del unread msg. Please da need del log";;
 esac
-
