@@ -10,7 +10,8 @@ USERUTIL="/home/coremail/bin/userutil"
 
 del_all_msg()
 { 
-  cat ${FILE} | awk -F "," '{print $2" "$9}' | awk -F "=|=<" '{print $2":"$3}' | sed 's/> mid//g' > /tmp/alllog
+#  cat ${FILE} | awk -F "," '{print $2" "$9}' | awk -F "=|=<" '{print $2":"$3}' | sed 's/> mid//g' > /tmp/alllog
+  cat ${FILE} | awk -F "=<|>," '{print "mid="$2",score="" "$NF}' | awk -F "mid=|,score=" '{print $2":"$4}' > /tmp/alllog
   for d in `cat /tmp/alllog | sort | uniq ` ; do  
         ${USERUTIL} --delete-msg ${d%%:*} ${d##*:}
   done;
@@ -19,7 +20,7 @@ del_all_msg()
 
 del_unread_msg()
 {
-  cat ${FILE} | awk -F "," '{print $2" "$9}' | awk -F "=|=<" '{print $2":"$3}' | sed 's/> mid//g' > /tmp/alllog
+  cat ${FILE} | awk -F "=<|>," '{print "mid="$2",score="" "$NF}' | awk -F "mid=|,score=" '{print $2":"$4}' > /tmp/alllog
   for d in `cat /tmp/alllog  | sort | uniq ` ; do  
         ${USERUTIL} --list-msg ${d%%:*} | grep ${d##*:} | grep " \.\. " | sed 's/^1 /'${d%%:*}':/g' | awk '{print $1}' >> /tmp/unread.log
         #${USERUTIL} --list-msg ${d%%:*} | grep ${d##*:} | grep " .. " | sed 's/^1 /'${d%%:*}':/g' | awk '{print $1}' >> /tmp/unread.log
@@ -27,7 +28,7 @@ del_unread_msg()
   for i in `cat /tmp/unread.log` ; do
   	 ${USERUTIL} --delete-msg ${i%%:*} ${i##*:}
   done;
-#  rm /tmp/unread.log && rm /tmp/alllog
+  rm /tmp/unread.log && rm /tmp/alllog
 }  
 
 
@@ -39,3 +40,4 @@ case $1 in
 *)
     echo "Usage: $0 -da del all msg | -du del del unread msg. Please da need del log";;
 esac
+
