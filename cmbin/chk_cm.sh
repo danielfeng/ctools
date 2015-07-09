@@ -4,6 +4,8 @@
 
 CM_HOME="/home/coremail"
 
+PATH="/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin"
+export PATH
 
 echo "查找coremail安装包"
 find /home/ /root/ -maxdepth 2 -name *.install.sh
