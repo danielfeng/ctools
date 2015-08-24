@@ -2,6 +2,7 @@
 # Author : danielfeng
 # E-mail : danielfancy@gmail.com
 
+export PATH="/usr/lib64/qt-3.3/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/home/coremail/bin:/home/ctools/cmbin:/root/bin"
 docker stop `docker ps -q`
 docker rm `docker ps -a -q`
 docker run -p 81:3000 -d --privileged -v /var/run/docker.sock:/var/run/docker.sock -i -t dn_ct_rails bash -c "cd /home/app/webapp/ && rails s"
@@ -10,7 +11,6 @@ docker run -p 81:3000 -d --privileged -v /var/run/docker.sock:/var/run/docker.so
 cm_app_list=("100:cmxt200-x32-as4" \
 "101:cmxt201-x32-as4" \
 "102:cmxt202-x32-as4" \
-"103:cmxt203-x32-as4" \
 "104:cmxt210-x32-as4" \
 "105:cmxt211-x32-as4" \
 "106:cmxt212-x32-as4" \
@@ -25,6 +25,7 @@ cm_app_list=("100:cmxt200-x32-as4" \
 )
 
 
+#"103:cmxt203-x32-as4" \
 #"111:cm400x32as4" \
 #"112:cm401x32as4" \
 #"113:cm403x32as4" \

@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Author : danielfeng
 # E-mail : danielfancy@gmail.com
+
+export PATH="/usr/lib64/qt-3.3/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/home/coremail/bin:/home/ctools/cmbin:/root/bin"
 docker stop `docker ps -q`
 docker rm `docker ps -a -q`
 docker run -p 81:3000 -d --privileged -v /var/run/docker.sock:/var/run/docker.sock -i -t dn_ct_rails bash -c "cd /home/app/webapp/ && rails s"
