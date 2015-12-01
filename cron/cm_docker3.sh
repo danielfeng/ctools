@@ -5,8 +5,10 @@
 export PATH="/usr/lib64/qt-3.3/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/home/coremail/bin:/home/ctools/cmbin:/root/bin"
 docker stop `docker ps -q`
 docker rm `docker ps -a -q`
-docker run -p 81:3000 -d --privileged -v /var/run/docker.sock:/var/run/docker.sock -i -t dn_ct_rails bash -c "cd /home/app/webapp/ && rails s"
-docker run -p 82:3000 -d --privileged -v /var/run/docker.sock:/var/run/docker.sock -i -t dn_ct_rails5 bash -c "cd /home/app/webapp/ && rails s"
+/etc/init.d/docker restart
+
+docker run -p 81:3000 -d --privileged -v /var/run/docker.sock:/var/run/docker.sock -i -t --name=dn_ct_rails dn_ct_rails bash -c "cd /home/app/webapp/ && rails s"
+docker run -p 82:3000 -d --privileged -v /var/run/docker.sock:/var/run/docker.sock -i -t --name-dn_ct_rails5 dn_ct_rails5 bash -c "cd /home/app/webapp/ && rails s"
 
 docker run -d -p 80:80 -v /etc/nginx/:/etc/nginx/ -v /var/log/nginx:/var/log/nginx -v /etc/localtime:/etc/localtime nginx
 
