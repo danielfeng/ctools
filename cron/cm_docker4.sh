@@ -24,13 +24,14 @@ cm_app_list=("100:cmxt300-x64-as6" \
 "111:cm501a-x64-as6" \
 "112:cm501b-x64-as6" \
 "113:cm502a-x64-as6" \
+"114:cm503-x64-as6" \
 )
 DATE=`date +"%Y-%m-%d"`
 
 docker_start()
 {
 for i in ${cm_app_list[@]}; do
-   docker run --cap-add ALL -p ${i%%:*}80:80 -p ${i%%:*}50:5000 -d -v /mnt/release/release/release/:/home/release -i -t --name=${i##*:} ${i##*:} bash -c "cd /root/web/ && npm start" && echo 192.168.209.10:${i%%:*}80 ${i##*:} OK >> /tmp/dn1${DATE}.log 
+   docker run --cap-add ALL -p ${i%%:*}80:80 -p ${i%%:*}50:5000 -d -v /mnt/release/release/release/:/home/release -i -t --name=${i##*:} ${i##*:} bash -c "cd /root/web/ && npm start" && echo 192.168.209.27:${i%%:*}80 ${i##*:} OK >> /tmp/dn1${DATE}.log 
    sleep 1
    docker exec ${i##*:} /home/coremail/sbin/cmctrl.sh start 
 done
