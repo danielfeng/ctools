@@ -10,20 +10,11 @@ docker run -v /var/log/squid3:/var/log/squid3 -v /etc/squid3:/etc/squid3 -p 3128
 docker run -p 81:3000 -d --privileged -v /var/run/docker.sock:/var/run/docker.sock -i -t dn_ct_rails bash -c "cd /home/app/webapp/ && rails s"
 
 #docker run -p 80:80 -d -i -t cm_nginx nginx -g 'daemon off;'
-cm_app_list=("100:cmxt300-x64-as6" \
-"101:cmxt301-x64-as6" \
-"102:cmxt303-x64-as6-arch11abas" \
-"103:cmxt304-x64-as6-arch11apro" \
-"104:cmxt304a-x64-as6-arch20bas" \
-"105:cmxt305-x64-as6-arch20pro" \
-"106:cmxt305a-x64-as6-arch201bas" \
-"107:cmxt305b-x64-as6-arch201pro" \
-"108:cmxt306-x64-as6-arch202bas" \
-"109:cmxt306a-x64-as6-arch202pro" \
-"110:cm500-x64-as6" \
-"111:cm501a-x64-as6" \
-"112:cm501b-x64-as6" \
-"113:cm502a-x64-as6" \
+cm_app_list=("100:cmxt500-x64-as6" \
+"101:cmxt501-x64-as6" \
+"102:cmxt501a-x64-as6" \
+"103:ds211-x64-as6" \
+
 )
 DATE=`date +"%Y-%m-%d"`
 
@@ -37,3 +28,14 @@ done
 echo "ok"
 }
 docker_start
+
+# "104:cmxt304a-x64-as6-arch20bas" \
+# "105:cmxt305-x64-as6-arch20pro" \
+# "106:cmxt305a-x64-as6-arch201bas" \
+# "107:cmxt305b-x64-as6-arch201pro" \
+# "108:cmxt306-x64-as6-arch202bas" \
+# "109:cmxt306a-x64-as6-arch202pro" \
+# "110:cm500-x64-as6" \
+# "111:cm501a-x64-as6" \
+# "112:cm501b-x64-as6" \
+# "113:cm502a-x64-as6" \
