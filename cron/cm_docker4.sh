@@ -20,11 +20,12 @@ cm_app_list=("100:cmxt300-x64-as6" \
 "107:cmxt305b-x64-as6-arch201pro" \
 "108:cmxt306-x64-as6-arch202bas" \
 "109:cmxt306a-x64-as6-arch202pro" \
-"110:cm500-x64-as6" \
-"111:cm501a-x64-as6" \
-"112:cm501b-x64-as6" \
-"113:cm502a-x64-as6" \
-"114:cm503-x64-as6" \
+"110:cmxt307-x64-as6" \
+"111:cm500-x64-as6" \
+"112:cm501a-x64-as6" \
+"113:cm501b-x64-as6" \
+"114:cm502a-x64-as6" \
+"115:cm503-x64-as6" \
 )
 DATE=`date +"%Y-%m-%d"`
 
