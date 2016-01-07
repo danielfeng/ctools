@@ -5,6 +5,7 @@
 export PATH="/usr/lib64/qt-3.3/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/home/coremail/bin:/home/ctools/cmbin:/root/bin"
 docker stop `docker ps -q`
 docker rm `docker ps -a -q`
+/etc/init.d/docker restart
 
 docker run -v /var/log/squid3:/var/log/squid3 -v /etc/squid3:/etc/squid3 -p 3128:3128 -d sameersbn/squid
 docker run -p 81:3000 -d --privileged -v /var/run/docker.sock:/var/run/docker.sock -i -t dn_ct_rails bash -c "cd /home/app/webapp/ && rails s"
