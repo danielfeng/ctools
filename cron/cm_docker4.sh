@@ -41,5 +41,5 @@ echo "ok"
 }
 docker_start
 
-docker run --rm swarm join --addr=192.168.209.27:2375 token://7cffb0bd077653e9e113e23124f856fa &
+#docker run --rm swarm join --addr=192.168.209.27:2375 token://7cffb0bd077653e9e113e23124f856fa &
 docker run -d -p 2376:2375 swarm manage token://7cffb0bd077653e9e113e23124f856fa

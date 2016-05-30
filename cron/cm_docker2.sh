@@ -41,4 +41,4 @@ docker_start
 # "112:cm501b-x64-as6" \
 # "113:cm502a-x64-as6" \
 
-docker run --rm swarm join --addr=192.168.209.10:2375 token://7cffb0bd077653e9e113e23124f856fa
+#docker run --rm swarm join --addr=192.168.209.10:2375 token://7cffb0bd077653e9e113e23124f856fa
