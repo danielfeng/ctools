@@ -10,6 +10,7 @@ docker rm `docker ps -a -q`
 docker run -v /var/log/squid3:/var/log/squid3 -v /etc/squid3:/etc/squid3 -p 3128:3128 -d sameersbn/squid
 docker run -p 81:3000 -d --privileged -v /var/run/docker.sock:/var/run/docker.sock -i -t dn_ct_rails bash -c "cd /home/app/webapp/ && rails s"
 
+docker run --rm swarm join --addr=192.168.209.10:2375 token://7cffb0bd077653e9e113e23124f856fa
 #docker run -p 80:80 -d -i -t cm_nginx nginx -g 'daemon off;'
 cm_app_list=("100:cmxt500-x64-as6" \
 "101:cmxt501-x64-as6" \

@@ -9,6 +9,7 @@ docker rm `docker ps -a -q`
 /etc/init.d/docker restart
 docker run -p 81:3000 -d --privileged -v /var/run/docker.sock:/var/run/docker.sock -i -t --name=dn_ct_rails dn_ct_rails bash -c "cd /home/app/webapp/ && rails s"
 
+docker run --rm swarm join --addr=192.168.209.9:2375 token://7cffb0bd077653e9e113e23124f856fa
 #docker run -p 80:80 -d -i -t cm_nginx nginx -g 'daemon off;'
 cm_app_list=("100:cmxt200-x32-as4" \
 "101:cmxt201-x32-as4" \

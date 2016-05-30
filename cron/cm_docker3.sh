@@ -12,6 +12,8 @@ docker run -p 82:3000 -d --privileged -v /var/run/docker.sock:/var/run/docker.so
 
 docker run -d -p 80:80 -v /etc/nginx/:/etc/nginx/ -v /var/log/nginx:/var/log/nginx -v /etc/localtime:/etc/localtime nginx
 
+docker run --rm swarm join --addr=192.168.209.11:2375 token://7cffb0bd077653e9e113e23124f856fa
+
 #docker run -p 80:80 -d -i -t cm_nginx nginx -g 'daemon off;'
 cm_app_list=("100:cm400-x32-as4" \
 "101:cm401-x32-as4" \
