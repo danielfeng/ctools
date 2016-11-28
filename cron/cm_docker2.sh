@@ -3,6 +3,7 @@
 # E-mail : danielfancy@gmail.com
 
 export PATH="/usr/lib64/qt-3.3/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/home/coremail/bin:/home/ctools/cmbin:/root/bin"
+/etc/init.d/docker restart 
 docker stop `docker ps -q`
 docker rm `docker ps -a -q`
 /etc/init.d/docker restart
