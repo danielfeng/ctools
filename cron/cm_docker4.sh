@@ -33,7 +33,7 @@ DATE=`date +"%Y-%m-%d"`
 docker_start()
 {
 for i in ${cm_app_list[@]}; do
-   docker run --cap-add ALL -p ${i%%:*}80:80 -p ${i%%:*}50:5000 -d -v /mnt/release/release/release/:/home/release -i -t --name=${i##*:} ${i##*:} bash -c "cd /root/web/ && npm start" && echo 192.168.209.27:${i%%:*}80 ${i##*:} OK >> /tmp/dn1${DATE}.log 
+   docker run --cap-add ALL -p ${i%%:*}80:80 -p ${i%%:*}50:5000 -d -v /mnt/release/release/release/:/home/release -v /mnt/dockerdata/tools:/home/tools -i -t --name=${i##*:} ${i##*:} bash -c "cd /root/web/ && npm start" && echo 192.168.209.27:${i%%:*}80 ${i##*:} OK >> /tmp/dn1${DATE}.log 
    sleep 1
    docker exec ${i##*:} /home/coremail/sbin/cmctrl.sh start 
 done
