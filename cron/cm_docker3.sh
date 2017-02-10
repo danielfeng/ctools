@@ -8,6 +8,10 @@ docker stop `docker ps -q`
 docker rm `docker ps -a -q`
 /etc/init.d/docker restart
 
+SERVER_PID_FILE="/home/app/webapp/tmp/pids/server.pid"
+
+[ -f ${SERVER_PID_FILE} ] && rm ${SERVER_PID_FILE}
+
 docker run -p 81:3000 -d --privileged -v /var/run/docker.sock:/var/run/docker.sock -i -t --name=dn_ct_rails dn_ct_rails bash -c "cd /home/app/webapp/ && rails s"
 docker run -p 82:3000 -d --privileged -v /var/run/docker.sock:/var/run/docker.sock  -v /home/app/webapp/:/home/app/webappdn/ -i -t --name=dn_ct_rails6 dn_ct_rails6 bash -c "cd /home/app/webappdn/ && rails s"
 
