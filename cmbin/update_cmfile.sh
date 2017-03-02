@@ -7,6 +7,7 @@
 CM_FILE_BACKUP=${COREMAIL_HOME}/cm_file_bak_`date +%F`
 NEW_CM_FILE=./cm_update_file
 DIR=$(dirname `pwd`/$0)
+COREMAIL_HOME=/home/coremail
 
 restart_clean_tomcat(){
     rm -rf ${COREMAIL_HOME}/java/tomcat/work/*
