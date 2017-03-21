@@ -23,27 +23,27 @@ check_ip()
 
 create_os()
 {
-	echo "Create ${VZ_ID} OS..." && \
-	vzctl create ${VZ_ID} --ostemplate centos-${OS_ID}-x86_64 && \
-	echo "Change ${VZ_ID} config..." && \
-	vzctl set ${VZ_ID} --onboot yes --save && \
-	vzctl set ${VZ_ID} --ipadd 192.168.173.${VZ_ID} --save && \
-	vzctl set ${VZ_ID} --nameserver 8.8.8.8 --save && \
-	vzctl set ${VZ_ID} --hostname ${HOSTNAME}${OS_ID} --save && \
-	vzctl set ${VZ_ID} --diskspace 60G:60G --save && \
-	vzctl set ${VZ_ID} --features nfs:on --save && \
-	vzctl set ${VZ_ID} --physpages 0:1024M --save && \
-	vzctl set ${VZ_ID} --diskinodes 400000000:400000000 --save && \
-	echo "Wait start ${VZ_ID} os..." && \
-	vzctl start ${VZ_ID} && \
+	echo "Create 1${VZ_ID} OS..." && \
+	vzctl create 1${VZ_ID} --ostemplate centos-${OS_ID}-x86_64 && \
+	echo "Change 1${VZ_ID} config..." && \
+	vzctl set 1${VZ_ID} --onboot yes --save && \
+	vzctl set 1${VZ_ID} --ipadd 192.168.173.${VZ_ID} --save && \
+	vzctl set 1${VZ_ID} --nameserver 192.168.173.1 --save && \
+	vzctl set 1${VZ_ID} --hostname ${HOSTNAME}${OS_ID}-${VZ_ID} --save && \
+	vzctl set 1${VZ_ID} --diskspace 60G:60G --save && \
+	vzctl set 1${VZ_ID} --features nfs:on --save && \
+	vzctl set 1${VZ_ID} --physpages 0:1024M --save && \
+	vzctl set 1${VZ_ID} --diskinodes 400000000:400000000 --save && \
+	echo "Wait start 1${VZ_ID} os..." && \
+	vzctl start 1${VZ_ID} && \
 	echo "Input ${HOSTNAME} password" && \
-	vzctl exec ${VZ_ID} passwd  
+	vzctl exec 1${VZ_ID} passwd  
 }
 
 destroy_os()
 {
-	vzctl stop ${VZ_ID}
-	vzctl destroy ${VZ_ID}
+	vzctl stop 1${VZ_ID}
+	vzctl destroy 1${VZ_ID}
 }
 
 case $1 in
