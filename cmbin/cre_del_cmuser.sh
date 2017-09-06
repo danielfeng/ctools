@@ -20,25 +20,25 @@ DOMAIN=`awk '{print $3}' /tmp/1a.txt`
 
 create_user()
 {
-	for i in `seq ${USER_CNT}`; do
-		${USERUTIL} --fast-create-user auto_${i}@${DOMAIN} 123 p=${PRO}\&o=${ORG}\&c=1
-	done
-	\rm /tmp/1a.txt
+  for i in `seq ${USER_CNT}`; do
+    ${USERUTIL} --fast-create-user auto_${i}@${DOMAIN} 123 p=${PRO}\&o=${ORG}\&c=1
+  done
+  \rm /tmp/1a.txt
 }
 
 delete_user()
 {
-	for i in `seq ${USER_CNT}`; do
-		${USERUTIL} --delete-user auto_${i}@${DOMAIN} 
-	done
-	\rm /tmp/1a.txt
+  for i in `seq ${USER_CNT}`; do
+    ${USERUTIL} --delete-user auto_${i}@${DOMAIN} 
+  done
+  \rm /tmp/1a.txt
 }
 
 case $1 in
-del | -d )
+  del | -d )
     delete_user;;
-add | -a )
+  add | -a )
     create_user;;
-*)
+  *)
     echo "Usage: $0 -a add 100 | -d Delete 100 Create/Delete one hundred coremail users";;
 esac

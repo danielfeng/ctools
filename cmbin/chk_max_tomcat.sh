@@ -14,8 +14,8 @@ if [[ $MAX_PROC -gt 100 ]]; then
   echo `date` >> ${LOG_TOMCAT}
   echo "---------------------" >> ${LOG_TOMCAT}
   pstack ${PID_PROC} >> ${LOG_TOMCAT}
-	echo 0
+  echo 0
   pkill tail >/dev/null 2>&1 
 else
-	echo 1
+  echo 1
 fi
